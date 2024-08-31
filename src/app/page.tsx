@@ -2,8 +2,20 @@
 
 import { useState, useEffect, useRef } from "react";
 import { db } from "../lib/firebase";
-import { doc, getDoc, setDoc, DocumentData, Timestamp } from "firebase/firestore";
-import { SignInButton, useUser } from '@clerk/nextjs'; // Import Clerk hooks
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  DocumentData,
+  Timestamp,
+  collection,
+  addDoc,
+  query,
+  getDocs,
+} from "firebase/firestore";
+import { SignInButton, useUser } from "@clerk/nextjs"; // Import Clerk hooks
 import Link from "next/link";
 
 interface CountdownState {
@@ -23,6 +35,7 @@ export default function Home() {
 
   const [showLoader, setShowLoader] = useState(true);
   const emailSentRef = useRef(false); // Ref to track if the email has been sent
+  const [userCount, setUserCount] = useState<number>(0); // State to track user count
   const countdownDuration = 11 * 24 * 60 * 60 * 1000;
   const { isSignedIn, user } = useUser(); // Use Clerk's hook to get user information
 
@@ -55,7 +68,9 @@ export default function Home() {
           if (distance >= 0) {
             setCountdown({
               days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-              hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+              hours: Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+              ),
               minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
               seconds: Math.floor((distance % (1000 * 60)) / 1000),
             });
@@ -75,11 +90,26 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (isSignedIn && user && !emailSentRef.current) { 
+    if (isSignedIn && user && !emailSentRef.current) {
       // Check if the user is signed in and email is not sent yet
       handleSendEmail(user.primaryEmailAddress?.emailAddress || '', user.firstName || '');
     }
   }, [isSignedIn, user]);
+
+  useEffect(() => {
+    // Fetch the user count on initial load
+    const fetchUserCount = async () => {
+      try {
+        const waitlistRef = collection(db, "waitlist");
+        const querySnapshot = await getDocs(waitlistRef);
+        setUserCount(querySnapshot.size); // Set the user count to the number of documents in the 'waitlist' collection
+      } catch (error) {
+        console.error("Error fetching user count:", error);
+      }
+    };
+
+    fetchUserCount();
+  }, []);
 
   const handleSendEmail = async (email: string, name: string) => {
     if (!email || emailSentRef.current) return; // Exit if no email is provided or email already sent
@@ -100,6 +130,18 @@ export default function Home() {
       if (response.ok) {
         console.log("Email sent successfully:", data.message);
         emailSentRef.current = true; // Set emailSentRef to true after sending the email
+
+        // Add new user to the waitlist in Firestore
+        const waitlistRef = collection(db, "waitlist");
+        await addDoc(waitlistRef, {
+          email,
+          name,
+          joinedAt: Timestamp.fromDate(new Date()),
+        });
+
+        // Update the local state to increment the count
+        setUserCount((prevCount) => prevCount + 1);
+
       } else {
         console.error("Error sending email:", data.error);
       }
@@ -110,7 +152,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen max-w-[43.5rem] mx-auto flex-col items-center justify-center p-6 bg">
-   
       <Link href={'/'} className="absolute top-0 gap-2 left-0 p-6 flex justify-center items-center group">
         <div className="d">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -123,7 +164,6 @@ export default function Home() {
       </Link>
 
       {/* Countdown Display */}
-      
       <div className="flex flex-wrap items-center justify-center gap-4 p-4 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30">
         <div className="flex flex-col items-center justify-center bg-black/10 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 text-gray-100 text-4xl sm:text-5xl lg:text-6xl p-4 w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32">
           {String(countdown.days).padStart(2, '0')}
@@ -142,8 +182,8 @@ export default function Home() {
           {String(countdown.seconds).padStart(2, '0')}
           <sub className="text-xs sm:text-sm lg:text-base text-gray-300">SEC</sub>
         </div>
-             {/* Buttons */}
-      <div className="sm:flex-row flex-col flex w-full   gap-2 items-center justify-center mt-4">
+         {/* Buttons */}
+      <div className="sm:flex-row flex-col flex w-full gap-2 items-center justify-center mt-4">
         <SignInButton fallbackRedirectUrl="/" signUpFallbackRedirectUrl="/onboarding">
           <div className="bg-white/50 w-full rounded-lg shadow-lg backdrop-blur-sm border border-white/30 text-[#fa0053] uppercase p-2 px-4 text-center hover:bg-black/10 transition-colors duration-300 cursor-pointer">
             Join wait list
@@ -157,8 +197,12 @@ export default function Home() {
         </Link>
       </div>
       </div>
+      {/* Display User Count */}
+      <div className="mt-4 text-base py-2 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 px-3">
+        Total Sign-ups: {userCount}
+      </div>
 
- 
+     
 
       {/* Loader */}
       {showLoader && (
