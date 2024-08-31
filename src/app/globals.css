@@ -412,8 +412,7 @@ a {
 
   background: hsla(0, 0%, 100%, 0.1);
   border-radius: 20px;
-  box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
-    inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
+
 }
 
 ::-webkit-scrollbar-thumb:hover {
