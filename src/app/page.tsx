@@ -14,8 +14,9 @@ import {
   addDoc,
   query,
   getDocs,
+  where,
 } from "firebase/firestore";
-import { SignInButton, useUser } from "@clerk/nextjs"; // Import Clerk hooks
+import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs"; // Import Clerk hooks
 import Link from "next/link";
 
 interface CountdownState {
@@ -115,6 +116,16 @@ export default function Home() {
     if (!email || emailSentRef.current) return; // Exit if no email is provided or email already sent
 
     try {
+      // Check if the email already exists in the waitlist collection
+      const waitlistRef = collection(db, "waitlist");
+      const q = query(waitlistRef, where("email", "==", email));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        console.log("Email already in waitlist:", email);
+        return; // Exit if the email is already in the waitlist
+      }
+
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: {
@@ -132,7 +143,6 @@ export default function Home() {
         emailSentRef.current = true; // Set emailSentRef to true after sending the email
 
         // Add new user to the waitlist in Firestore
-        const waitlistRef = collection(db, "waitlist");
         await addDoc(waitlistRef, {
           email,
           name,
@@ -146,7 +156,7 @@ export default function Home() {
         console.error("Error sending email:", data.error);
       }
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Error sending email or checking waitlist:", error);
     }
   };
 
@@ -184,11 +194,11 @@ export default function Home() {
         </div>
          {/* Buttons */}
       <div className="sm:flex-row flex-col flex w-full gap-2 items-center justify-center mt-4">
-        <SignInButton fallbackRedirectUrl="/" signUpFallbackRedirectUrl="/onboarding">
+        <SignUpButton fallbackRedirectUrl="/" signInFallbackRedirectUrl="/onboarding">
           <div className="bg-white/50 w-full rounded-lg shadow-lg backdrop-blur-sm border border-white/30 text-[#fa0053] uppercase p-2 px-4 text-center hover:bg-black/10 transition-colors duration-300 cursor-pointer">
             Join wait list
           </div>
-        </SignInButton>
+        </SignUpButton>
 
         <Link href="/about" className="w-full">
           <div className="bg-white/50 w-full rounded-lg shadow-lg backdrop-blur-sm border border-white/30 text-[#fa0053] uppercase p-2 px-7 text-center hover:bg-black/10 transition-colors duration-300 cursor-pointer">
@@ -201,8 +211,6 @@ export default function Home() {
       <div className="mt-4 text-base py-2 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 px-3">
         Total Sign-ups: {userCount}
       </div>
-
-     
 
       {/* Loader */}
       {showLoader && (
