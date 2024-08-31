@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,4 +31,498 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+body{
+  background-image: url(/bg2.svg);
+  background-size: cover;
+
+}
+
+/* From Uiverse.io by PriyanshuGupta28 */ 
+.loader {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+  border-radius: 50%;
+  margin-right: 1rem;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.circle:nth-child(2) {
+  animation-delay: 0.2s;
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+}
+
+.circle:nth-child(3) {
+  animation-delay: 0.4s;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.circle:nth-child(4) {
+  animation-delay: 0.6s;
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
+
+.circle:nth-child(5) {
+  animation-delay: 0.8s;
+  background-color: #00DBDE;
+  background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+ 
+  }
+}
+
+.countdown-container {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+ /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.countdown-element {
+ /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #e6e6e6; /* Light color for numbers */
+  font-size: 48px; /* Adjust font size */
+  padding: 20px;
+  border-radius: 8px;
+  margin: 0 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 130px; /* Ensures consistent width */
+  height: 130px;
+}
+
+.countdown-colon {
+  color: #29a19c; /* Accent color for colons */
+  font-size: 48px; /* Same size as numbers */
+  padding: 0 10px;
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.cl-signUp-root ,.cl-signIn-root{
+  background: rgba(255, 255, 255, 0.2) ;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) IM;
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.cl-internal-17jfncx ,.cl-internal-1fsy72e {
+  box-shadow: 0 0 0;
+    border: 0;
+}
+
+.cl-internal-1dauvpw, .cl-internal-1hp5nqm {
+  display: none;
+}
+.cl-signUp-start ,.cl-signIn-start {
+  background: transparent;
+}
+.cl-footer ,.cl-internal-617r0v{
+ background: transparent;
+}
+
+.cl-internal-1fsy72e ,.cl-internal-1338bh3 ,.cl-internal-10vqj2v{
+  background: rgba(255, 255, 255, 0.2) ;
+
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) IM;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.cl-internal-1fsy72e:hover ,.cl-internal-1fsy72e:focus ,.cl-internal-1338bh3:hover ,.cl-internal-1338bh3:focus,.cl-internal-10vqj2v:focus ,.cl-internal-10vqj2v:hover,.cl-internal-1338bh3 ,.cl-internal-10vqj2v{
+  box-shadow: 0 0 0 ;
+  border: 0;
+  outline: 0;
+}
+.cl-internal-1jcsuiw ,.cl-internal-178xxbv {
+  color: #00DBDE ;
+}
+
+@font-face {
+  font-family: 'ClashDisplay-Bold';
+  src: url('/ClashDisplay-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+.ClashDisplay-Bold {
+  font-family: 'ClashDisplay-Bold', sans-serif;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+
+.cl-internal-1hp5nqm,.cl-internal-df7v37{
+  display: none;
+}
+
+
+.open-sans-500 {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 56px;
+}
+
+@font-face {
+  font-family: 'Mixcase';
+  src: local('Mixcase Unmixed'), local('Mixcase-Unmixed'),
+      url('/fonts/MixcaseUnmixed.woff2') format('woff2'),
+      url('/fonts/MixcaseUnmixed.woff') format('woff'),
+      url('/fonts/MixcaseUnmixed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Mixcase-500{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.Mixcase-800{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
+
+
+#user-name ,.user-name{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 46px;
+  background: linear-gradient(to right, #4285f4 0%, #9b72cb 9%,#d96570 20%, #d96570 24%,#9b72cb 35%,#4285f4 44%,#9b72cb 50%,#9b72cb 56%,#131314 75%,#131314 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  
+}
+
+
+#user-name ,.user-name{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 46px;
+  background: linear-gradient(to right, #4285f4 0%, #9b72cb 9%,#d96570 20%, #d96570 24%,#9b72cb 35%,#4285f4 44%,#9b72cb 50%,#9b72cb 56%,#131314 75%,#131314 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  
+}
+
+.user-name{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 46px;
+  background: linear-gradient(to right, #d96570 100%, #d96570 24%, 44%,#d96570 20%, #d96570 24%,#d96570 20%, #d96570 100%,);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  
+}
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+
+  background: hsla(0, 0%, 100%, 0.1);
+  border-radius: 20px;
+  box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
+    inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(0, 0%, 100%, 0.15);
+}
+
+
+.ReactMarkdown ul {
+  list-style-type: none; /* Removes bullets */
+  padding-left: 0; /* Removes padding */
+}
+
+.ReactMarkdown li {
+  margin-bottom: 0.5em; /* Optional: Adjusts spacing between list items */
+}
+
+.cl-internal-1hp5nqm,.cl-internal-df7v37{
+  display: none;
+}
+
+
+.open-sans-500 {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 56px;
+}
+pre{
+  max-width: 768px;
+  
+}
+@font-face {
+  font-family: 'Mixcase';
+  src: local('Mixcase Unmixed'), local('Mixcase-Unmixed'),
+      url('/fonts/MixcaseUnmixed.woff2') format('woff2'),
+      url('/fonts/MixcaseUnmixed.woff') format('woff'),
+      url('/fonts/MixcaseUnmixed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Mixcase-500{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.user-name{
+  font-family: "Mixcase", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 46px;
+  background: linear-gradient(to right, #4285f4 0%, #9b72cb 9%,#d96570 20%, #d96570 24%,#9b72cb 35%,#4285f4 44%,#9b72cb 50%,#9b72cb 56%,#131314 75%,#131314 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  
+}
+.scroll-hidden::-webkit-scrollbar{
+ width: 0px;
+ height: 0px;
+}
+
+@media (max-width: 640px) {
+  pre,code{
+    max-width: 240px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+}
+
+.bg-glass{
+background: rgba(255, 255, 255, 0.2);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.css-1hhq5ig {
+  padding: 34PX;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+   max-width: 344px;
+  background-color: #1e1f20;
+  box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+  color: #fff;
+  border-radius: 8px;
+}
+
+pre pre{
+  background-color: #1e1f20 !important;
+}
+pre{
+  background-color: #1e1f20  !important;
+}
+
+pre::-webkit-scrollbar{
+  height: 0px;
 }
