@@ -4,7 +4,7 @@ import {
   FaUserTie,
   FaRegQuestionCircle,
   FaRedo,
-  FaInfoCircle ,
+  FaInfoCircle,
   FaBook,
   FaArrowRight,
 } from "react-icons/fa";
@@ -29,7 +29,7 @@ import Link from "next/link";
 function Card({ icon, text, onClick }) {
   return (
     <div
-      className="flex-1 poppins-regular min-w-[180px] h-48 rounded-xl cursor-pointer hover:bg-[#e70055ae]  text-white p-4 bg-white/20 shadow-lg backdrop-blur-sm border border-white/30 transition duration-500 flex flex-col justify-between"
+      className="flex-1 poppins-regular min-w-[180px] h-48 rounded-xl cursor-pointer hover:bg-[#e70055ae] text-white p-4 bg-white/20 shadow-lg backdrop-blur-sm border border-white/30 transition duration-500 flex flex-col justify-between"
       onClick={onClick}
     >
       <div>{text}</div>
@@ -51,6 +51,9 @@ const CodeBlock = ({ language, value }) => {
 export default function Page() {
   const { user } = useUser();
 
+  // Initialize Showdown converter
+  const converter = new Showdown.Converter();
+
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +66,15 @@ export default function Page() {
   const messagesEndRef = useRef(null);
   const [promptCount, setPromptCount] = useState(0);
 
-  // Initialize Showdown converter
-  const converter = new Showdown.Converter();
+  useEffect(() => {
+    // Add the initial message from the assistant when the component mounts
+    setMessages([
+      {
+        role: "assistant",
+        content: "Welcome! How can I assist you with Curate today?",
+      },
+    ]);
+  }, []);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -234,12 +244,12 @@ export default function Page() {
                 Hello{user && <span>, {user.firstName}!</span>}
               </h1>
               <h1 className="text-white Mixcase-500 text-4xl">
-           You can ask about curate?
+                How can I assist you with Curate?
               </h1>
             </div>
             <div className="flex justify-center mt-16  sm:p-0 pl-5 ">
               <div className="flex  gap-2  scroll-hidden overflow-x-auto">
-              <Card
+                <Card
                   icon={<FaInfoCircle className="text-2xl" />}
                   text="What is Curate?"
                   onClick={() => handleCardClick("What is Curate?")}
@@ -263,7 +273,8 @@ export default function Page() {
                   text="What are the key features of Curate?"
                   onClick={() =>
                     handleCardClick("What are the key features of Curate?")
-                  }/>
+                  }
+                />
               </div>
             </div>
           </div>
@@ -285,7 +296,7 @@ export default function Page() {
                   <div className=" rounded-full w-fit  overflow-hidden object-cover  text-white mt-1">
                     {msg.role === "user" ? (
                       <img
-                        src={user?.imageUrl}
+                        src={user?.imageUrl || "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"}
                         alt="User Profile"
                         onError={(e) =>
                           (e.target.src =
@@ -327,7 +338,7 @@ export default function Page() {
       >
         <textarea
           ref={textareaRef}
-          placeholder="Enter a prompt here..."
+          placeholder="Type your question..."
           className="textarea-field bg-[#e70055] flex-grow p-2 border-none focus:outline-none resize-none overflow-y-auto"
           value={message}
           onChange={handleInputChange}
