@@ -172,9 +172,11 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 .cl-signUp-start ,.cl-signIn-start {
   background: transparent;
 }
-.cl-footer ,.cl-internal-617r0v{
+.cl-footer ,.cl-internal-617r0v ,.cl-internal-162hn3d ,.cl-identityPreviewText{
  background: transparent;
 }
+
+
 
 .cl-internal-1fsy72e ,.cl-internal-1338bh3 ,.cl-internal-10vqj2v{
   background: rgba(255, 255, 255, 0.2) ;
@@ -189,7 +191,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   border: 0;
   outline: 0;
 }
-.cl-internal-1jcsuiw ,.cl-internal-178xxbv {
+.cl-internal-1jcsuiw ,.cl-internal-178xxbv ,.cl-internal-1pgbyfm  {
   color: #00DBDE ;
 }
 
