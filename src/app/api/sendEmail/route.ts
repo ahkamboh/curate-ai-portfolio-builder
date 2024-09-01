@@ -269,7 +269,7 @@ export async function POST(req: Request) {
           </body>
         </html>
       `;
-    }
+    }   
 
     // Configure the transporter using your SMTP settings
     const transporter = nodemailer.createTransport({
