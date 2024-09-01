@@ -44,7 +44,10 @@ const unrelatedQueries = [
   "programming",
   "write an email",
   "write a story",
-  "non curate"
+  "non curate",
+  "add two numbers",
+  "example of",
+  "sample code"
 ];
 
 const identityQuestions = [
@@ -64,8 +67,11 @@ export async function POST(req) {
   try {
     const { message } = await req.json();
 
+    // Convert message to lowercase for consistent checks
+    const lowerCaseMessage = message.toLowerCase();
+
     // Check if the user is asking about an unrelated topic
-    if (unrelatedQueries.some(q => message.toLowerCase().includes(q))) {
+    if (unrelatedQueries.some(q => lowerCaseMessage.includes(q))) {
       const nonCurateResponse = `
       I'm here to assist with queries related to Curate AI only. 😊
       Please ask about anything specific to our platform, like setting up your account, learning about features, or troubleshooting.
@@ -77,7 +83,7 @@ export async function POST(req) {
     }
 
     // Check if the user is asking about the assistant's identity
-    if (identityQuestions.some(q => message.toLowerCase().includes(q))) {
+    if (identityQuestions.some(q => lowerCaseMessage.includes(q))) {
       const identityResponse = `
       **Hello! I'm the Curate AI Assistant.** 😊 I'm here to help you with all your queries about Curate, the AI-powered platform designed to help you create stunning portfolios effortlessly. 🚀
 
@@ -90,7 +96,7 @@ export async function POST(req) {
       return NextResponse.json({ message: identityResponse });
     }
 
-    // Add user message to conversation history
+    // If the message is related to Curate, continue with the API call
     conversationHistory.push({ role: 'user', content: message });
 
     // Prepare messages for the API call
