@@ -1,3 +1,5 @@
+// Updated Home component (paste-2.txt)
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -16,7 +18,7 @@ import {
   getDocs,
   where,
 } from "firebase/firestore";
-import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs"; // Import Clerk hooks
+import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 interface CountdownState {
@@ -35,10 +37,10 @@ export default function Home() {
   });
 
   const [showLoader, setShowLoader] = useState(true);
-  const emailSentRef = useRef(false); // Ref to track if the email has been sent
-  const [userCount, setUserCount] = useState<number>(0); // State to track user count
+  const emailSentRef = useRef(false);
+  const [userCount, setUserCount] = useState<number>(0);
   const countdownDuration = 11 * 24 * 60 * 60 * 1000;
-  const { isSignedIn, user } = useUser(); // Use Clerk's hook to get user information
+  const { isSignedIn, user } = useUser();
 
   useEffect(() => {
     const timer = setTimeout(() => setShowLoader(false), 1000);
@@ -92,18 +94,16 @@ export default function Home() {
 
   useEffect(() => {
     if (isSignedIn && user && !emailSentRef.current) {
-      // Check if the user is signed in and email is not sent yet
       handleSendEmail(user.primaryEmailAddress?.emailAddress || '', user.firstName || '');
     }
   }, [isSignedIn, user]);
 
   useEffect(() => {
-    // Fetch the user count on initial load
     const fetchUserCount = async () => {
       try {
         const waitlistRef = collection(db, "waitlist");
         const querySnapshot = await getDocs(waitlistRef);
-        setUserCount(querySnapshot.size); // Set the user count to the number of documents in the 'waitlist' collection
+        setUserCount(querySnapshot.size);
       } catch (error) {
         console.error("Error fetching user count:", error);
       }
@@ -113,19 +113,9 @@ export default function Home() {
   }, []);
 
   const handleSendEmail = async (email: string, name: string) => {
-    if (!email || emailSentRef.current) return; // Exit if no email is provided or email already sent
+    if (!email || emailSentRef.current) return;
 
     try {
-      // Check if the email already exists in the waitlist collection
-      const waitlistRef = collection(db, "waitlist");
-      const q = query(waitlistRef, where("email", "==", email));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        console.log("Email already in waitlist:", email);
-        return; // Exit if the email is already in the waitlist
-      }
-
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: {
@@ -140,18 +130,24 @@ export default function Home() {
       const data = await response.json();
       if (response.ok) {
         console.log("Email sent successfully:", data.message);
-        emailSentRef.current = true; // Set emailSentRef to true after sending the email
+        emailSentRef.current = true;
 
-        // Add new user to the waitlist in Firestore
-        await addDoc(waitlistRef, {
-          email,
-          name,
-          joinedAt: Timestamp.fromDate(new Date()),
-        });
+        // Check if the user is new and update Firestore and count only for new users
+        const waitlistRef = collection(db, "waitlist");
+        const q = query(waitlistRef, where("email", "==", email));
+        const querySnapshot = await getDocs(q);
 
-        // Update the local state to increment the count
-        setUserCount((prevCount) => prevCount + 1);
+        if (querySnapshot.empty) {
+          // Add new user to the waitlist in Firestore
+          await addDoc(waitlistRef, {
+            email,
+            name,
+            joinedAt: Timestamp.fromDate(new Date()),
+          });
 
+          // Update the local state to increment the count
+          setUserCount((prevCount) => prevCount + 1);
+        }
       } else {
         console.error("Error sending email:", data.error);
       }

@@ -3,20 +3,20 @@ import nodemailer from "nodemailer";
 import { db } from "../../../lib/firebase"; // Import your Firebase configuration
 import { doc, getDoc, setDoc } from "firebase/firestore"; // Import Firestore methods
 
-export async function POST(req: Request) {
+export async function POST(req: { json: () => PromiseLike<{ email: any; name: any; }> | { email: any; name: any; }; }) {
   try {
     const { email, name } = await req.json(); // Receive email and name from the request body
 
     // Reference to the user's document in the "waitlist" collection
-    const userRef = doc(db, "waitlist", email); // Assume "waitlist" is your Firestore collection
+    const userRef = doc(db, "waitlist", email);
     const userDoc = await getDoc(userRef);
 
     let emailSubject;
     let htmlContent;
+    let textContent; // Plain text version of the email
 
-    // Define countdown duration in milliseconds (e.g., 9 days)
-    const countdownDuration =10 * 24 * 60 * 60 * 1000;
-
+    // Define countdown duration in milliseconds (e.g., 10 days)
+    const countdownDuration = 10 * 24 * 60 * 60 * 1000;
     let countdownEndTime;
 
     if (userDoc.exists()) {
@@ -175,8 +175,12 @@ export async function POST(req: Request) {
           </body>
         </html>
       `;
+      
+      // Plain text version
+      textContent = `Hello, ${name}!\n\nYou have already joined our waitlist!\nCurate is launching soon with exclusive early access to our portfolio-building platform, featuring AI guidance and stunning templates. Stay tuned!\n\nThank you for your patience!\n\nIf you have any questions, feel free to contact us at hello@curateai.online. To unsubscribe from these emails, visit: https://yourunsubscribeurl.com.`;
+    
     } else {
-      // User is new, add them to the waitlist
+      // New user, add them to the waitlist
       await setDoc(userRef, { name, email, joinedAt: new Date() });
 
       emailSubject = `Welcome to the Waitlist, ${name}!`;
@@ -269,13 +273,14 @@ export async function POST(req: Request) {
           </body>
         </html>
       `;
+      
+      // Plain text version
+      textContent = `Welcome, ${name}!\n\nThank you for joining our waitlist. We're excited to have you on board!\nCurate is launching soon with exclusive early access to our portfolio-building platform, featuring AI guidance and stunning templates. Stay tuned!\n\nIf you have any questions, feel free to contact us at hello@curateai.online. To unsubscribe from these emails, visit: https://yourunsubscribeurl.com.`;
     }
 
-    // Configure the transporter using your SMTP settings
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: false, // True for 465, false for other ports
+    // Create a transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -284,9 +289,10 @@ export async function POST(req: Request) {
 
     // Set up the email options
     const mailOptions = {
-      from: process.env.SMTP_USER, // Sender address
+      from: `"Curate" <${process.env.SMTP_USER}>`, // Sender address with a recognizable name
       to: email, // Recipient's email address
       subject: emailSubject, // Subject line
+      text: textContent, // Plain text body
       html: htmlContent, // HTML body content
     };
 
@@ -297,6 +303,7 @@ export async function POST(req: Request) {
       message: "Email sent successfully",
       previewURL: nodemailer.getTestMessageUrl(info),
     });
+
   } catch (error) {
     console.error("Error sending email:", error);
     return NextResponse.json(
