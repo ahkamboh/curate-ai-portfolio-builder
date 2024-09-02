@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser, useAuth } from "@clerk/nextjs"; // Use Clerk's hooks for client-side authentication
 import { useRouter } from "next/navigation";
 
@@ -8,11 +8,12 @@ export default function TestingPage() {
   const [response, setResponse] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [resumeId, setResumeId] = useState<string>(""); // State to store the resume ID
+  const [content, setContent] = useState<string>(""); // State for intro content
   const { getToken } = useAuth(); // Get the auth token
   const { user } = useUser(); // Get the user info
   const router = useRouter();
 
-  const fetchResume = async (id: string) => {
+  const createIntro = async () => {
     try {
       const token = await getToken();
       console.log("Auth token:", token);
@@ -22,11 +23,18 @@ export default function TestingPage() {
         return;
       }
 
-      const res = await fetch(`/api/resume/read/${id}`, {
-        method: "GET",
+      // Hardcode the resume ID or use the one entered by the user
+      const hardcodedResumeId = resumeId || "your-hardcoded-resume-id";
+
+      const res = await fetch(`/api/resume/intro/create/${hardcodedResumeId}`, {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`, // Use the token for authorization
         },
+        body: JSON.stringify({
+          content, // Pass the intro content
+        }),
       });
 
       const data = await res.json();
@@ -37,21 +45,14 @@ export default function TestingPage() {
         setResponse(JSON.stringify(data, null, 2));
       }
     } catch (error) {
-      console.error("Error fetching resume:", error);
+      console.error("Error creating intro:", error);
       setError("An unexpected error occurred");
     }
   };
 
-  // Use effect to automatically fetch a resume if resumeId is provided
-  useEffect(() => {
-    if (resumeId) {
-      fetchResume(resumeId);
-    }
-  }, [resumeId]);
-
   return (
     <div>
-      <h1>Testing Specific Resume Read API</h1>
+      <h1>Testing Create Intro API</h1>
       <input
         type="text"
         placeholder="Enter Resume ID"
@@ -59,18 +60,22 @@ export default function TestingPage() {
         onChange={(e) => setResumeId(e.target.value)}
         className="border p-2 mb-4"
       />
+      <input
+        type="text"
+        placeholder="Enter Intro Content"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className="border p-2 mb-4"
+      />
       <button
-        onClick={() => fetchResume(resumeId)}
-        className="bg-blue-500 text-white p-2 rounded"
+        onClick={createIntro}
+        className="bg-green-500 text-white p-2 rounded"
       >
-        Fetch Resume
+        Create Intro
       </button>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
-      {response ? (
-        <pre>{response}</pre>
-      ) : (
-        <p>{resumeId ? "Fetching resume..." : "Enter a resume ID to fetch data"}</p>
-      )}
+      {response ? <pre>{response}</pre> : <p>Enter details to create an intro</p>}
     </div>
   );
 }
