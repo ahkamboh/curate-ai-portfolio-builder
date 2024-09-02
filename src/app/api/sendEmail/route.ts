@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     let htmlContent;
 
     // Define countdown duration in milliseconds (e.g., 9 days)
-    const countdownDuration =10 * 24 * 60 * 60 * 1000;
+    const countdownDuration =7 * 24 * 60 * 60 * 1000;
 
     let countdownEndTime;
 
