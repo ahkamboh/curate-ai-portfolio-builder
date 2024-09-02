@@ -204,9 +204,9 @@ export default function Home() {
       </div>
       </div>
       {/* Display User Count */}
-      <div className="mt-4 text-base py-2 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 px-3">
+      {/* <div className="mt-4 text-base py-2 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 px-3">
         Total Sign-ups: {userCount+120}
-      </div>
+      </div> */}
 
       {/* Loader */}
       {showLoader && (
