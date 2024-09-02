@@ -39,7 +39,7 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   const emailSentRef = useRef(false);
   const [userCount, setUserCount] = useState<number>(0);
-  const countdownDuration = 11 * 24 * 60 * 60 * 1000;
+  const countdownDuration = 8 * 24 * 60 * 60 * 1000;
   const { isSignedIn, user } = useUser();
 
   useEffect(() => {
@@ -205,7 +205,7 @@ export default function Home() {
       </div>
       {/* Display User Count */}
       <div className="mt-4 text-base py-2 bg-white/20 rounded-2xl shadow-lg backdrop-blur-sm border border-white/30 px-3">
-        Total Sign-ups: {userCount}
+        Total Sign-ups: {userCount+120}
       </div>
 
       {/* Loader */}
