@@ -1,10 +1,11 @@
-import Header from '@/components/Header';
+import Header from "@/components/Header";
+import CallToAction from "@/sections/CallToAction";
 
 export default function Main() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      {/* Other content */}
+      <CallToAction />
     </div>
   );
 }
