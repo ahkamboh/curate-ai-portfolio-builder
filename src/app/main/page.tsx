@@ -3,6 +3,7 @@ import CallToAction from "@/sections/CallToAction";
 import FeaturesSection from "@/sections/Features";
 import StepsSection from "@/sections/Steps";
 import SolutionsSection from "@/sections/Solutions";
+import Footer from "@/components/Footer";
 
 export default function Main() {
   return (
@@ -12,6 +13,7 @@ export default function Main() {
       <FeaturesSection />
       <StepsSection />
       <SolutionsSection />
+      <Footer />
     </div>
   );
 }
