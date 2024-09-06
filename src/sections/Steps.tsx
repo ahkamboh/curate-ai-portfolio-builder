@@ -26,15 +26,16 @@ const StepsSection = () => {
         <div className="flex items-center lg:w-1/2 lg:justify-end mt-8 lg:mt-0">
           <div className="bg-white border border-gray-300 rounded-xl p-4 flex items-center space-x-4">
             {/* Percentage */}
-            <div className="rounded-full bg-white p-4">
+            <div className="rounded-full bg-white p-4 flex justify-center items-center">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] text-[38px] font-semibold">
                 48%
               </span>
             </div>
             {/* Text */}
-            <div className="text-left">
-              <p className="text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight">
-                better chances of getting a sale with <br /> a professional deck
+            <div className="text-left flex flex-col justify-center">
+              <p className="text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight text-center lg:text-left">
+                better chances of getting a<br />
+                sale with a professional deck
               </p>
             </div>
           </div>
@@ -47,10 +48,14 @@ const StepsSection = () => {
         <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">01</span>
+            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+              01
+            </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">Fill the Form</h4>
+          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+            Fill the Form
+          </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
             Tell us your requirements, and we will put together the ideal team.
           </p>
@@ -60,10 +65,14 @@ const StepsSection = () => {
         <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">02</span>
+            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+              02
+            </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">Kick-off Call</h4>
+          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+            Kick-off Call
+          </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
             Speak to one of our experts to close any loose ends.
           </p>
@@ -73,10 +82,14 @@ const StepsSection = () => {
         <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">03</span>
+            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+              03
+            </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">Get your designs</h4>
+          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+            Get your designs
+          </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
             Start getting your drafts within 24-48hrs.
           </p>
