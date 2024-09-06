@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import CallToAction from "@/sections/CallToAction";
 import FeaturesSection from "@/sections/Features";
 import StepsSection from "@/sections/Steps";
+import SolutionsSection from "@/sections/Solutions";
 
 export default function Main() {
   return (
@@ -9,7 +10,8 @@ export default function Main() {
       <Header />
       <CallToAction />
       <FeaturesSection />
-      <StepsSection/>
+      <StepsSection />
+      <SolutionsSection />
     </div>
   );
 }
