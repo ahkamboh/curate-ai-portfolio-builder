@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import "@fontsource/poppins"; // Ensure Poppins font is loaded
 
 const StepsSection = () => {
@@ -9,7 +8,7 @@ const StepsSection = () => {
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full space-y-6 lg:space-y-0">
         {/* Left side with heading */}
         <div className="flex flex-col space-y-4 lg:w-1/2 relative">
-          <h2 className="text-[#1B1B1B] font-semibold text-[32px] sm:text-[36px] md:text-[40px] lg:text-[45px] leading-tight">
+          <h2 className="text-[#1B1B1B] font-semibold text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[45px] leading-tight">
             Get started in{" "}
             <span className="relative">
               3 easy steps
@@ -27,13 +26,13 @@ const StepsSection = () => {
           <div className="bg-white border border-gray-300 rounded-xl p-4 flex items-center space-x-4">
             {/* Percentage */}
             <div className="rounded-full bg-white p-4 flex justify-center items-center">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] text-[38px] font-semibold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] text-[30px] md:text-[38px] font-semibold">
                 48%
               </span>
             </div>
             {/* Text */}
             <div className="text-left flex flex-col justify-center">
-              <p className="text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight text-center lg:text-left">
+              <p className="text-[14px] md:text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight text-center lg:text-left">
                 better chances of getting a<br />
                 sale with a professional deck
               </p>
@@ -43,17 +42,17 @@ const StepsSection = () => {
       </div>
 
       {/* Steps Section */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:space-x-8 w-full space-y-8 lg:space-y-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
         {/* Step 1 */}
-        <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
+        <div className="bg-[#F7F5F6] w-full h-auto rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+            <span className="text-[60px] md:text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
               01
             </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+          <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
             Fill the Form
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
@@ -62,15 +61,15 @@ const StepsSection = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
+        <div className="bg-[#F7F5F6] w-full h-auto rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+            <span className="text-[60px] md:text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
               02
             </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+          <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
             Kick-off Call
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
@@ -79,15 +78,15 @@ const StepsSection = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="bg-[#F7F5F6] w-full lg:w-[413px] h-[271px] rounded-[20px] p-6 space-y-4">
+        <div className="bg-[#F7F5F6] w-full h-auto rounded-[20px] p-6 space-y-4">
           <div className="flex items-center space-x-4">
             {/* Step Number */}
-            <span className="text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
+            <span className="text-[60px] md:text-[70px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] opacity-60">
               03
             </span>
           </div>
           {/* Step Text */}
-          <h4 className="text-[24px] font-medium text-[#2F2F2F]">
+          <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
             Get your designs
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
