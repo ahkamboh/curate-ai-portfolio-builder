@@ -45,7 +45,7 @@ const CallToAction = () => {
           Join wait list
         </button>
         <button className="border border-[#1B1B1B] text-[#1B1B1B] text-[16px] sm:text-[18px] font-medium px-8 py-3 rounded-lg hover:bg-gray-100 transition-all">
-          Consultation
+          Talk to Bot
         </button>
       </div>
 

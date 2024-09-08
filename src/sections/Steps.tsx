@@ -9,10 +9,9 @@ const StepsSection = () => {
         {/* Left side with heading */}
         <div className="flex flex-col space-y-4 lg:w-1/2 relative">
           <h2 className="text-[#1B1B1B] font-semibold text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[45px] leading-tight">
-            Get started in{" "}
+            Build your AI-enhanced portfolio in{" "}
             <span className="relative">
               3 easy steps
-              {/* Underline only the "3 easy steps" */}
               <span
                 className="absolute bottom-[-2px] left-0 h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-red-400 rounded-full"
                 style={{ width: "100%", height: "4px" }}
@@ -33,8 +32,8 @@ const StepsSection = () => {
             {/* Text */}
             <div className="text-left flex flex-col justify-center">
               <p className="text-[14px] md:text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight text-center lg:text-left">
-                better chances of getting a<br />
-                sale with a professional deck
+                Better chances of getting hired <br />
+                with a polished AI-assisted portfolio.
               </p>
             </div>
           </div>
@@ -53,10 +52,10 @@ const StepsSection = () => {
           </div>
           {/* Step Text */}
           <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
-            Fill the Form
+            Create Your Profile
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
-            Tell us your requirements, and we will put together the ideal team.
+            Provide your personal details, work experience, and skills to begin.
           </p>
         </div>
 
@@ -70,10 +69,10 @@ const StepsSection = () => {
           </div>
           {/* Step Text */}
           <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
-            Kick-off Call
+            AI-Powered Suggestions
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
-            Speak to one of our experts to close any loose ends.
+            Curate AI provides real-time suggestions for improving your resume or portfolio.
           </p>
         </div>
 
@@ -87,18 +86,18 @@ const StepsSection = () => {
           </div>
           {/* Step Text */}
           <h4 className="text-[22px] md:text-[24px] font-medium text-[#2F2F2F]">
-            Get your designs
+            Publish & Share
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6">
-            Start getting your drafts within 24-48hrs.
+            Host your resume online and share it with potential employers.
           </p>
         </div>
       </div>
 
-      {/* Talk to an expert button */}
+      {/* Get started button */}
       <div className="flex justify-center">
         <button className="bg-white border border-black rounded-lg text-[#1B1B1B] text-[18px] font-medium px-6 py-3 hover:bg-gray-100 transition-all">
-          Talk to an expert
+          Get Started
         </button>
       </div>
     </section>

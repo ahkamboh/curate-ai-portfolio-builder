@@ -10,7 +10,7 @@ const SolutionsSection = () => {
         <h2 className="text-[#1B1B1B] font-semibold text-[32px] sm:text-[36px] md:text-[40px] lg:text-[45px] leading-tight">
           The full suite{" "}
           <span className="relative">
-            solution
+            of portfolio solutions
             <span
               className="absolute bottom-[-5px] left-0 h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-red-400 rounded-full"
               style={{ width: "100%", height: "4px", bottom: "-4px" }}
@@ -21,105 +21,101 @@ const SolutionsSection = () => {
 
       {/* Solution Section */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 w-full max-w-7xl">
-        {/* E-Books */}
+        {/* AI-Powered Resume Builder */}
         <div className="flex flex-col items-center">
           <Image
             src="/path/to/image1.png"
-            alt="E-Books"
+            alt="AI-Powered Resume Builder"
             width={273}
             height={298.95}
             className="object-cover"
           />
           <div className="mt-4 w-full text-left">
             <h4 className="text-[24px] font-semibold text-[#2F2F2F]">
-              E-Books
+              AI-Powered Resume Builder
             </h4>
             <p className="text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-              Driving growth, capturing markets, and maximizing revenue with
-              innovative solutions
+              Get AI suggestions to craft the perfect resume with real-time feedback.
             </p>
             <p className="text-[16px] font-normal text-[#1B1B1B] mt-2">
               Starting from{" "}
               <span className="text-[#2E52FF] text-[24px] font-semibold">
-                $100
+                free
               </span>
             </p>
           </div>
         </div>
 
-        {/* Sales Deck */}
+        {/* Customizable Portfolio Templates */}
         <div className="flex flex-col items-center">
           <Image
             src="/path/to/image2.png"
-            alt="Sales Deck"
+            alt="Portfolio Templates"
             width={273}
             height={298.95}
             className="object-cover"
           />
           <div className="mt-4 w-full text-left">
             <h4 className="text-[24px] font-semibold text-[#2F2F2F]">
-              Sales Deck
+              Customizable Portfolio Templates
             </h4>
             <p className="text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-              Driving growth, capturing markets, and maximizing revenue with
-              innovative solutions
+              Choose from a range of professional, customizable portfolio templates.
             </p>
             <p className="text-[16px] font-normal text-[#1B1B1B] mt-2">
               Starting from{" "}
               <span className="text-[#2E52FF] text-[24px] font-semibold">
-                $100
+                free
               </span>
             </p>
           </div>
         </div>
 
-        {/* Reports */}
+        {/* Resume Hosting & Sharing */}
         <div className="flex flex-col items-center">
           <Image
             src="/path/to/image3.png"
-            alt="Reports"
+            alt="Resume Hosting"
             width={273}
             height={298.95}
             className="object-cover"
           />
           <div className="mt-4 w-full text-left">
             <h4 className="text-[24px] font-semibold text-[#2F2F2F]">
-              Reports
+              Resume Hosting & Sharing
             </h4>
             <p className="text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-              Driving growth, capturing markets, and maximizing revenue with
-              innovative solutions
+              Host your resume on a personalized URL and share it securely with potential employers.
             </p>
             <p className="text-[16px] font-normal text-[#1B1B1B] mt-2">
               Starting from{" "}
               <span className="text-[#2E52FF] text-[24px] font-semibold">
-                $100
+                free
               </span>
             </p>
           </div>
         </div>
 
-        {/* Videos and Explainers */}
+        {/* AI Feedback & Endorsements */}
         <div className="flex flex-col items-center">
           <Image
             src="/path/to/image4.png"
-            alt="Videos and Explainers"
+            alt="AI Feedback"
             width={273}
             height={298.95}
             className="object-cover"
           />
           <div className="mt-4 w-full text-left">
             <h4 className="text-[24px] font-semibold text-[#2F2F2F]">
-              Videos and Explainers
+              AI Feedback & Endorsements
             </h4>
             <p className="text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-              Driving growth, capturing markets, and maximizing revenue with
-              innovative solutions
+              Collect AI-driven feedback on your portfolio and request endorsements.
             </p>
             <p className="text-[16px] font-normal text-[#1B1B1B] mt-2">
               Starting from{" "}
               <span className="text-[#2E52FF] text-[24px] font-semibold">
-                $100
+                free
               </span>
             </p>
           </div>

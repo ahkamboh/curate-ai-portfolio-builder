@@ -10,9 +10,9 @@ const FeaturesSection = () => {
         {/* Left side with heading and paragraph */}
         <div className="flex flex-col space-y-4 lg:w-1/2">
           <h2 className="text-[#1B1B1B] font-semibold text-[28px] sm:text-[36px] md:text-[40px] lg:text-[45px] leading-tight">
-            Don’t let your boring collaterals create any <br />
+            Don’t let your portfolio fall behind. <br />
             <span className="relative">
-              collateral damage.
+              Level up with AI.
               <span
                 className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-red-400 rounded-full"
                 style={{ height: "5px", width: "100%", bottom: "-5px" }}
@@ -20,9 +20,7 @@ const FeaturesSection = () => {
             </span>
           </h2>
           <p className="text-[#2F2F2F] text-[14px] sm:text-[16px] leading-[22px] sm:leading-[24px] opacity-70">
-            We are a bunch of creative minds who understand your business and
-            design to its needs. After all, there are somethings Ai cannot
-            replace.
+            Curate AI empowers professionals to create standout portfolios with AI-driven suggestions and real-time feedback, ensuring your resume and portfolio match today’s standards.
           </p>
         </div>
 
@@ -38,7 +36,7 @@ const FeaturesSection = () => {
             {/* Text */}
             <div className="text-left">
               <p className="text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight">
-                C-suites prefer a video over <br /> powerpoint presentations.
+                Professionals have a higher success rate <br /> when using AI-powered resume tools.
               </p>
             </div>
           </div>
@@ -51,7 +49,7 @@ const FeaturesSection = () => {
         <div className="relative w-full lg:w-1/2 h-[350px] lg:h-[524px] rounded-lg overflow-hidden border border-gray-300">
           <Image
             src="/mnt/data/image.png" // Use the uploaded image path
-            alt="Collaterals Design"
+            alt="Curate AI Portfolio Assistance"
             layout="fill"
             className="object-cover"
           />
@@ -71,11 +69,10 @@ const FeaturesSection = () => {
             </div>
             <div>
               <h4 className="text-[20px] sm:text-[24px] font-medium text-[#2F2F2F]">
-                Holistic business collaterals revamp
+                AI-Powered Portfolio Creation
               </h4>
               <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6 max-w-sm">
-                We transform your business collaterals inside out with expert
-                designers, writers and strategists.
+                Get real-time AI suggestions to enhance content, layout, and formatting for your resume and portfolio.
               </p>
             </div>
           </div>
@@ -92,11 +89,10 @@ const FeaturesSection = () => {
             </div>
             <div>
               <h4 className="text-[20px] sm:text-[24px] font-medium text-[#2F2F2F]">
-                Ultra Modern Designs
+                Customizable Templates
               </h4>
               <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6 max-w-sm">
-                Our elite designers create stunning visual material that helps
-                you market better.
+                Choose from a wide variety of professional templates with customizable colors and fonts to match your style.
               </p>
             </div>
           </div>
@@ -113,18 +109,17 @@ const FeaturesSection = () => {
             </div>
             <div>
               <h4 className="text-[20px] sm:text-[24px] font-medium text-[#2F2F2F]">
-                Asset Consultancy
+                Resume Hosting & Sharing
               </h4>
               <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 leading-6 max-w-sm">
-                We understand your business and help you build assets that suit
-                your needs.
+                Host your resume on a personalized URL and share it effortlessly via email or social media.
               </p>
             </div>
           </div>
 
           {/* Talk to an expert button */}
           <button className="w-full lg:w-[201px] h-[57px] bg-transparent border border-black rounded-lg text-[#1B1B1B] text-[18px] font-medium hover:bg-gray-100 transition-all">
-            Talk to an expert
+            Get Started Now
           </button>
         </div>
       </div>
