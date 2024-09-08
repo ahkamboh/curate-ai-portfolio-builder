@@ -42,7 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,13 +53,11 @@ export default function RootLayout({
         baseTheme: neobrutalism,
         variables: { colorPrimary: "#fa0053" },
       }}
+      afterSignOutUrl="/main"
     >
       <html lang="en">
-        
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>
   );
 }
-
-

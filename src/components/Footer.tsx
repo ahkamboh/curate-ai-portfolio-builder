@@ -66,7 +66,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="border-t border-gray-700 mt-10 pt-6 flex flex-col lg:flex-row justify-between text-gray-500 text-sm">
-        <p>&copy; 2023 CurateAI Suite</p>
+        <p>&copy; 2024 CurateAI Suite</p>
         <div className="flex space-x-4 mt-4 lg:mt-0">
           <a href="#" className="hover:underline">
             Terms of Service
