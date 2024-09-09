@@ -40,20 +40,6 @@ const initialCardsData = [
   },
 ];
 
-// Function to convert a Blob URL to base64 string
-const blobToBase64 = async (blobUrl: string): Promise<string> => {
-  const response = await fetch(blobUrl);
-  const blob = await response.blob();
-  return new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result as string); // This is the base64 string
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
-};
-
 const ExpandingImages: React.FC<ExpandingImagesProps> = ({ onAchievementsDataChange }) => {
   const [cardsData, setCardsData] = useState<Array<Card>>(initialCardsData);
   const [activeId, setActiveId] = useState<number>(3);
@@ -99,13 +85,9 @@ const ExpandingImages: React.FC<ExpandingImagesProps> = ({ onAchievementsDataCha
     if (imgRef.current && crop.width && crop.height) {
       const croppedImageUrl = await getCroppedImg(imgRef.current, crop);
       if (croppedImageUrl && selectedCardId !== null) {
-        // Convert the cropped image blob URL to base64
-        const base64Image = await blobToBase64(croppedImageUrl);
-
-        // Pass the base64 string to the parent or upload it directly to the backend
-        // For demonstration, we are updating the card data with base64 string (you can upload it to Cloudinary)
+        // Store the URL directly instead of base64
         const newCardsData = cardsData.map((card) =>
-          card.id === selectedCardId ? { ...card, url: base64Image } : card
+          card.id === selectedCardId ? { ...card, url: croppedImageUrl } : card
         );
         setCardsData(newCardsData);
         setShowCropPopup(false);
@@ -162,7 +144,6 @@ const ExpandingImages: React.FC<ExpandingImagesProps> = ({ onAchievementsDataCha
       );
     });
   };
-
   return (
     <div className="bg-[#1b1b1b] border-2 p-2 border-neutral-800 rounded-xl overflow-hidden relative">
       <div className="flex">

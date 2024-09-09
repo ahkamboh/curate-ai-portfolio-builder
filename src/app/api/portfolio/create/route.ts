@@ -19,7 +19,7 @@ export const config = {
   },
 };
 
-// Define interfaces for our data structures
+// Interfaces for data structures
 interface Job {
   title: string;
   company: string;
@@ -62,17 +62,22 @@ interface ProfileData {
   achievements: Achievement[];
 }
 
-async function uploadToCloudinary(url: string): Promise<string | null> {
-  if (!url) return null;
+// Function to upload multiple images to Cloudinary in a batch
+async function uploadToCloudinaryBatch(urls: string[]): Promise<(string | null)[]> {
   try {
-    const uploadResponse = await cloudinary.v2.uploader.upload(url, {
-      resource_type: 'auto',
-      timeout: 60000, // 60 seconds timeout
+    const uploadPromises = urls.map((url) => {
+      if (!url) return null;
+      return cloudinary.v2.uploader.upload(url, {
+        resource_type: 'auto',
+        timeout: 60000, // 60 seconds timeout
+      });
     });
-    return uploadResponse.secure_url;
+
+    const results = await Promise.all(uploadPromises);
+    return results.map((result) => (result ? result.secure_url : null));
   } catch (error) {
-    console.error('Cloudinary upload failed:', error);
-    return null;
+    console.error('Cloudinary batch upload failed:', error);
+    return urls.map(() => null); // Return null for each failed upload
   }
 }
 
@@ -80,33 +85,45 @@ export async function POST(request: Request): Promise<NextResponse> {
   const profileData: ProfileData = await request.json();
 
   // Validate required fields
-  if (!profileData.name || !profileData.title || profileData.jobs.length === 0 || 
-      profileData.education.length === 0 || profileData.projects.length === 0 || 
-      profileData.achievements.length === 0) {
+  if (!profileData.name || !profileData.title || profileData.jobs.length === 0 ||
+    profileData.education.length === 0 || profileData.projects.length === 0 ||
+    profileData.achievements.length === 0) {
     return NextResponse.json({ error: 'Name, title, at least one job, education, project, and achievement are required' }, { status: 400 });
   }
 
   let connection: PoolConnection | null = null;
 
   try {
-    // Parallel image uploads
-    const [profileImageUrl, ...otherImageUrls] = await Promise.all([
-      uploadToCloudinary(profileData.imageUrl || ''),
-      ...profileData.projects.map(p => uploadToCloudinary(p.imageUrl || '')),
-      ...profileData.achievements.map(a => uploadToCloudinary(a.url || ''))
-    ]);
+    // Collect all image URLs to upload
+    const urlsToUpload = [
+      profileData.imageUrl || '',
+      ...profileData.projects.map(p => p.imageUrl || ''),
+      ...profileData.achievements.map(a => a.url || ''),
+    ];
+
+    // Upload all images to Cloudinary in a batch
+    const uploadedUrls = await uploadToCloudinaryBatch(urlsToUpload);
+
+    // Extract uploaded URLs
+    const [profileImageUrl, ...otherImageUrls] = uploadedUrls;
 
     // Update projects and achievements with new URLs
-    const updatedProjects = profileData.projects.map((p, i) => ({ ...p, imageUrl: otherImageUrls[i] || p.imageUrl }));
-    const updatedAchievements = profileData.achievements.map((a, i) => ({ 
-      ...a, 
-      url: otherImageUrls[i + profileData.projects.length] || a.url 
+    const updatedProjects: Project[] = profileData.projects.map((p, i) => ({
+      ...p,
+      imageUrl: otherImageUrls[i] || p.imageUrl,
+    }));
+    const updatedAchievements: Achievement[] = profileData.achievements.map((a, i) => ({
+      ...a,
+      url: otherImageUrls[i + profileData.projects.length] || a.url,
     }));
 
     // Get a connection from the pool
     connection = await pool.getConnection();
 
-    // Insert profile data into the MySQL database
+    // Batch Insert Profile Data with Transactions
+    await connection.beginTransaction();
+
+    // Insert profile data
     const [result] = await connection.query<RowDataPacket[]>(
       `
       INSERT INTO profiles (name, title, jobs, education, content, imageUrl, status, email, mailtoLink, projects, achievements)
@@ -127,8 +144,11 @@ export async function POST(request: Request): Promise<NextResponse> {
       ]
     );
 
+    await connection.commit();
+
     return NextResponse.json({ message: 'Profile created successfully', result }, { status: 201 });
   } catch (error) {
+    if (connection) await connection.rollback();
     console.error('Error creating profile:', error);
     return NextResponse.json({ error: 'Failed to create profile' }, { status: 500 });
   } finally {
