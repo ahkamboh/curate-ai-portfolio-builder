@@ -8,7 +8,7 @@ const Banner = () => {
         <div className="flex flex-col items-center justify-center space-y-6">
           {/* Heading */}
           <h3 className="text-[16px] sm:text-[18px] text-center font-normal text-[#1B1B1B]">
-            <span className="text-[#2E52FF] font-semibold">7,000+</span> Businesses Have Used CurateAI Suite To Build Their Portfolios Faster & Better.
+            <span className="text-[#2E52FF] font-semibold">100+</span> Users Have Used CurateAI Suite To Build Their Portfolios Faster & Better.
           </h3>
         </div>
       </section>

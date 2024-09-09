@@ -8,7 +8,7 @@ const DesignSection = () => {
       <div className="w-full flex flex-col lg:flex-row justify-between items-start">
         <div className="flex flex-col space-y-4 lg:w-2/3">
           <h2 className="text-[#1B1B1B] font-semibold text-[32px] sm:text-[36px] md:text-[40px] lg:text-[45px] leading-tight">
-            Making your collateral building{" "}
+            Making your portfolio building{" "}
             <span className="relative">
               seamless.
               <span
@@ -18,7 +18,8 @@ const DesignSection = () => {
             </span>
           </h2>
           <p className="text-[#2F2F2F] text-[16px] opacity-70">
-            Design your entire sales and marketing stack by a design expert.
+            Build and manage your professional portfolio with AI-powered
+            assistance tailored to your needs.
           </p>
         </div>
 
@@ -34,7 +35,7 @@ const DesignSection = () => {
             {/* Text */}
             <div className="text-left flex flex-col justify-center">
               <p className="text-[16px] font-normal text-[#1B1B1B] opacity-70 leading-tight text-center lg:text-left">
-                Pitch decks get rejected <br /> because of poor design
+                Portfolios have 84% more <br /> engagement with professional design.
               </p>
             </div>
           </div>
@@ -47,11 +48,10 @@ const DesignSection = () => {
         <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaUsers size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
-            Expert All-in-One Team
+            AI-Powered Assistance
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-            A one-stop shop for designers, writers, and developers, making your
-            collateral building seamless.
+            Leverage AI to design and structure your portfolio for maximum impact.
           </p>
         </div>
 
@@ -59,11 +59,10 @@ const DesignSection = () => {
         <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaCut size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
-            Tailored Solutions
+            Tailored Templates
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-            Unique strategies designed just for you, ensuring your brand stands
-            out.
+            Customize your portfolio with professionally designed templates that fit your style.
           </p>
         </div>
 
@@ -71,11 +70,10 @@ const DesignSection = () => {
         <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaDraftingCompass size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
-            Design with Detail
+            Precision & Detail
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-            We take care of every single detail when it comes to our designs and
-            optimize to create an impact.
+            Our platform focuses on precision, ensuring every section is perfectly aligned to your goals.
           </p>
         </div>
 
@@ -83,11 +81,10 @@ const DesignSection = () => {
         <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaBolt size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
-            Efficiency & Speed
+            Fast & Efficient
           </h4>
           <p className="text-[14px] sm:text-[16px] text-[#2F2F2F] opacity-70 mt-2">
-            Our streamlined process means faster results, so you can thrive in
-            no time.
+            Build a professional portfolio in minutes with our streamlined, user-friendly platform.
           </p>
         </div>
       </div>
