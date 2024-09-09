@@ -1,10 +1,13 @@
-// lib/db.ts
-import { Client } from 'pg';
+import mysql from 'mysql2/promise';
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
+// Create a connection pool
+const pool = mysql.createPool({
+  host: process.env.DB_HOST ,  
+  port: Number(process.env.DB_PORT),                                    // Your MySQL port
+  user: process.env.DB_USER ,                                       // Your MySQL username
+  password: process.env.DB_PASS,                   // Your MySQL password
+  database: process.env.DB_NAME ,                                  // Your database name
+  ssl: { rejectUnauthorized: false },                                             // SSL mode for Aiven Cloud
 });
 
-client.connect().catch((err) => console.error('Connection error', err.stack));
-
-export default client;
+export default pool;

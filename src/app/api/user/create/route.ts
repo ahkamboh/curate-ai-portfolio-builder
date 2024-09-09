@@ -1,45 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-import { getAuth } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
+import pool from '@/lib/db';  // Update this path to your actual db connection file
 
-const prisma = new PrismaClient();
-
-export async function POST(req: NextRequest) {
+// This is the named export for the POST method
+export async function POST(request: Request) {
   try {
-    console.log("API route /api/user/create hit");
+    const body = await request.json(); // Parse JSON from the request body
+    const { name, email } = body;
 
-    // Get user info from Clerk
-    const { userId } = getAuth(req);
-
-    console.log("userId from Clerk:", userId);
-
-    if (!userId) {
-      console.log("User not authenticated");
-      return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
+    if (!name || !email) {
+      return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    // Check if the user already exists in the database
-    const existingUser = await prisma.user.findUnique({
-      where: { clerkId: userId },
-    });
+    // Insert the new user into the database
+    const [result] = await pool.query('INSERT INTO users (name, email) VALUES (?, ?)', [name, email]);
 
-    if (existingUser) {
-      console.log("User already exists:", existingUser);
-      return NextResponse.json({ message: 'User already exists' }, { status: 200 });
-    }
-
-    // Create a new user in the database
-    const newUser = await prisma.user.create({
-      data: {
-        clerkId: userId,
-      },
-    });
-
-    console.log("User created successfully:", newUser);
-
-    return NextResponse.json({ message: 'User created successfully', user: newUser }, { status: 201 });
+    return NextResponse.json({ message: 'User created successfully', result }, { status: 201 });
   } catch (error) {
     console.error('Error creating user:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
   }
 }
