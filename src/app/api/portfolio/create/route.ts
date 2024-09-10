@@ -10,14 +10,7 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Increase the request size limit
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '100mb',
-    },
-  },
-};
+
 
 // Interfaces for data structures
 interface Job {
