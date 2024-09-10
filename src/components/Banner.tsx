@@ -3,7 +3,7 @@ import Image from "next/image"; // You can use this for logos if they are availa
 
 const Banner = () => {
   return (
-    <div className="w-full bg-white py-16 flex justify-center"> {/* Wrapper with white background and spacing */}
+    <div className="w-full bg-white bg-curate py-16 flex justify-center px-4"> {/* Wrapper with white background and spacing */}
       <section className="w-full max-w-[1282px] py-8 px-4 bg-gradient-to-r from-pink-100 to-blue-100 rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] rounded-bl-[20px] border border-t border-l border-b border-r border-gray-300">
         <div className="flex flex-col items-center justify-center space-y-6">
           {/* Heading */}

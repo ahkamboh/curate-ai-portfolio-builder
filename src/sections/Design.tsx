@@ -3,7 +3,8 @@ import { FaUsers, FaCut, FaDraftingCompass, FaBolt } from "react-icons/fa";
 
 const DesignSection = () => {
   return (
-    <section className="w-full py-16 px-4 md:px-6 lg:px-16 xl:px-32 bg-white">
+    <div className="bg-white bg-curate">
+    <section className="w-full container mx-auto py-16 px-4 md:px-6 lg:px-16 xl:px-32 ">
       {/* Heading Section */}
       <div className="w-full flex flex-col lg:flex-row justify-between items-start">
         <div className="flex flex-col space-y-4 lg:w-2/3">
@@ -25,9 +26,9 @@ const DesignSection = () => {
 
         {/* Stat Section */}
         <div className="flex items-center lg:w-1/2 lg:justify-end mt-8 lg:mt-0">
-          <div className="bg-white border border-gray-300 rounded-xl p-4 flex items-center space-x-4">
+          <div className="bg-white border border-gray-300 rounded-xl p-4 flex flex-wrap  justify-center items-center space-x-4">
             {/* Percentage */}
-            <div className="rounded-full bg-white p-4 flex justify-center items-center">
+            <div className="rounded-full bg-white p-4 flex  justify-center items-center flex-wrap">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#8B95F2] to-[#FA6F5C] text-[38px] font-semibold">
                 84%
               </span>
@@ -45,7 +46,7 @@ const DesignSection = () => {
       {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
         {/* Card 1 */}
-        <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
+        <div className="bg-[#f7f5f6] border rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaUsers size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
             AI-Powered Assistance
@@ -56,7 +57,7 @@ const DesignSection = () => {
         </div>
 
         {/* Card 2 */}
-        <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
+        <div className="bg-[#f7f5f6] border rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaCut size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
             Tailored Templates
@@ -67,7 +68,7 @@ const DesignSection = () => {
         </div>
 
         {/* Card 3 */}
-        <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
+        <div className="bg-[#f7f5f6] border rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaDraftingCompass size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
             Precision & Detail
@@ -78,7 +79,7 @@ const DesignSection = () => {
         </div>
 
         {/* Card 4 */}
-        <div className="bg-[#F1F3FA] rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
+        <div className="bg-[#f7f5f6] border rounded-lg p-8 min-h-[350px] flex flex-col items-start text-left justify-center">
           <FaBolt size={36} className="text-[#1B1B1B] mb-4" />
           <h4 className="text-[20px] font-semibold text-[#2F2F2F]">
             Fast & Efficient
@@ -89,6 +90,7 @@ const DesignSection = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

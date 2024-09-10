@@ -4,7 +4,7 @@ import React from "react";
 
 const SignUpPage = () => {
   return (
-    <main className="flex items-center justify-center min-h-screen relative">
+    <main className="flex items-center justify-center min-h-screen relative sign-bg">
  {/* <Link href={'/'} className="absolute top-0 gap-2 left-0 p-6 flex justify-center items-center group">
         <div className="d">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

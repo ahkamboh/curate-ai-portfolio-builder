@@ -8,6 +8,12 @@
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
 }
+.bg-curate ,section{
+  /* background-image: url(https://www.kambohdiv.tech/assets/grain-removebg-preview-47d3284881647040d2c6c365c05b3a65a4b04c678de2bc94b48a20946826a22f.png); */
+
+  background-image: url(https://www.kambohdiv.tech/assets/bg-grain-f042ea01f4cd0b3fcbc9b922d34647cfea93e5badb0b47c998117a4e62daf4f9.webp);
+  background-color: white;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -25,11 +31,11 @@ body {
   }
 }
 
-/* body{
+.sign-bg{
   background-image: url(/bg2.svg);
   background-size: cover;
 
-} */
+}
 
 /* From Uiverse.io by PriyanshuGupta28 */ 
 .loader {

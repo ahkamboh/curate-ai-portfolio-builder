@@ -62,22 +62,29 @@ interface ProfileData {
   achievements: Achievement[];
 }
 
-// Function to upload multiple images to Cloudinary in a batch
-async function uploadToCloudinaryBatch(urls: string[]): Promise<(string | null)[]> {
-  try {
-    const uploadPromises = urls.map((url) => {
-      if (!url) return null;
-      return cloudinary.v2.uploader.upload(url, {
-        resource_type: 'auto',
-        timeout: 60000, // 60 seconds timeout
-      });
-    });
+// Function to upload multiple images to Cloudinary in WebP format
+async function uploadImagesToCloudinary(urls: string[]): Promise<(string | null)[]> {
+  // Check if URLs array is empty
+  if (!urls.length) return [];
 
-    const results = await Promise.all(uploadPromises);
-    return results.map((result) => (result ? result.secure_url : null));
+  try {
+    // Upload each image and transform them to WebP
+    const uploadPromises = urls.map(url =>
+      cloudinary.v2.uploader.upload(url, {
+        resource_type: 'image',
+        format: 'webp', // Force WebP format
+        timeout: 60000, // 60 seconds timeout
+      })
+    );
+
+    // Resolve all upload promises in parallel
+    const uploadResponses = await Promise.all(uploadPromises);
+
+    // Return the secure URLs of the uploaded images
+    return uploadResponses.map(response => response.secure_url);
   } catch (error) {
-    console.error('Cloudinary batch upload failed:', error);
-    return urls.map(() => null); // Return null for each failed upload
+    console.error('Cloudinary bulk upload failed:', error);
+    return [];
   }
 }
 
@@ -85,33 +92,34 @@ export async function POST(request: Request): Promise<NextResponse> {
   const profileData: ProfileData = await request.json();
 
   // Validate required fields
-  if (!profileData.name || !profileData.title || profileData.jobs.length === 0 ||
-    profileData.education.length === 0 || profileData.projects.length === 0 ||
-    profileData.achievements.length === 0) {
+  if (!profileData.name || !profileData.title || profileData.jobs.length === 0 || 
+      profileData.education.length === 0 || profileData.projects.length === 0 || 
+      profileData.achievements.length === 0) {
     return NextResponse.json({ error: 'Name, title, at least one job, education, project, and achievement are required' }, { status: 400 });
   }
 
   let connection: PoolConnection | null = null;
 
   try {
-    // Collect all image URLs to upload
-    const urlsToUpload = [
+    // Collect all image URLs (profile image, project images, achievement images)
+    const imageUrls = [
       profileData.imageUrl || '',
       ...profileData.projects.map(p => p.imageUrl || ''),
-      ...profileData.achievements.map(a => a.url || ''),
+      ...profileData.achievements.map(a => a.url || '')
     ];
 
-    // Upload all images to Cloudinary in a batch
-    const uploadedUrls = await uploadToCloudinaryBatch(urlsToUpload);
+    // Upload all images in bulk and store as WebP
+    const uploadedImageUrls = await uploadImagesToCloudinary(imageUrls);
 
-    // Extract uploaded URLs
-    const [profileImageUrl, ...otherImageUrls] = uploadedUrls;
+    // Assign uploaded URLs to profile image, projects, and achievements
+    const [profileImageUrl, ...otherImageUrls] = uploadedImageUrls;
 
     // Update projects and achievements with new URLs
     const updatedProjects: Project[] = profileData.projects.map((p, i) => ({
       ...p,
       imageUrl: otherImageUrls[i] || p.imageUrl,
     }));
+
     const updatedAchievements: Achievement[] = profileData.achievements.map((a, i) => ({
       ...a,
       url: otherImageUrls[i + profileData.projects.length] || a.url,
