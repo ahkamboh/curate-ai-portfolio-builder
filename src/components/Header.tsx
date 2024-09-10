@@ -33,7 +33,7 @@ const Header = () => {
         className={`w-full flex items-center container mx-auto justify-between py-4 px-6 z-50 transition-all duration-300`}
       >
         <div className="flex items-center space-x-1">
-          <div className="w-48">
+          <div className="w-40">
           <img src="/curateai-trans.png" alt="" />
           </div>
         </div>
