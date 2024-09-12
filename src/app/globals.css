@@ -588,7 +588,7 @@ pre::-webkit-scrollbar{
   border-start-start-radius: 3rem; /* Top-left */
   border-end-start-radius: 3rem;   /* Bottom-left */
   border-start-end-radius: 0.75rem;      /* Top-right */
-  border-end-end-radius: 0.75rem;        /* Bottom-right */
+  border-end-end-radius: 0.75rem;        
 }
 
 .rounded-md {
