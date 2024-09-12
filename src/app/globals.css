@@ -590,3 +590,7 @@ pre::-webkit-scrollbar{
   border-start-end-radius: 0.75rem;      /* Top-right */
   border-end-end-radius: 0.75rem;        /* Bottom-right */
 }
+
+.rounded-md {
+  border-radius: calc(10px - 2px);
+}
