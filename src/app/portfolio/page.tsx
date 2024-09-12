@@ -243,7 +243,7 @@ const Page: React.FC = () => {
         <Footer socialLinks={socialLinks} onSocialLinksChange={handleSocialLinksChange} />
 
         {/* Live link popup */}
-        {/* {isLivePopupVisible && ( */}
+        {isLivePopupVisible && (
           <div className="fixed inset-0 bg-black/70 z-50 flex justify-center items-center">
             <div className="bg-[#2c2c2c] border border-neutral-800 rounded-md p-6  text-center">
               <h2 className="text-lg font-bold">Your Portfolio is Live!</h2>
@@ -269,7 +269,7 @@ const Page: React.FC = () => {
               </div>
             </div>
           </div>
-        {/* )} */}
+        )}
       </div>
     </div>
   );
