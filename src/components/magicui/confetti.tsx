@@ -14,7 +14,7 @@ import type {
   Options as ConfettiOptions,
 } from "canvas-confetti";
 import confetti from "canvas-confetti";
-
+{/* @ts-ignore */}
 import { Button, ButtonProps } from "@/components/ui/button";
 
 type Api = {
