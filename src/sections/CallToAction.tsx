@@ -69,7 +69,7 @@ const CallToAction = () => {
       <div className=" opacity-70 text-center text-[#2f2f2f] text-base font-normal  pb-10 pt-4 poppins-medium ">Showcase Your Talent and Achievements Today</div>
       {/* Buttons */}
       <div className="flex poppins-medium  flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
-      <SignUpButton fallbackRedirectUrl="/" signInFallbackRedirectUrl="/onboarding">
+      <SignUpButton fallbackRedirectUrl="/portfolio" signInFallbackRedirectUrl="/onboarding">
       <button className="relative z-10 bg-[#1B1B1B] text-white text-[16px] sm:text-[18px] font-medium px-8 py-3 rounded-lg transition-all duration-500 ease-in-out overflow-hidden group">
           Get Started
           <span className="absolute -z-10 inset-0 bg-gradient-to-r from-[#7B61FF] via-[#D35D90] to-[#FF7E66] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>

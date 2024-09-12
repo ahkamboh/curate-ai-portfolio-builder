@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import JobAccordion from "@/components/JobAccordion";
-import { useParams } from "next/navigation";
+import React from "react";
+import JobAccordion from "./JobAccordion";
 
 interface Education {
   title: string;
@@ -10,36 +9,25 @@ interface Education {
   description: string;
 }
 
-const EducationComponent: React.FC = () => {
-  const [education, setEducation] = useState<Education[]>([]);
-  const { id } = useParams(); // Get profile id from the route
+interface EducationComponentProps {
+  educationData: Education[]; // Expect the education data as a prop
+}
 
-  useEffect(() => {
-    const fetchEducationData = async () => {
-      try {
-        const response = await fetch(`/api/portfolio/read/${id}`);
-        const data = await response.json();
-        setEducation(data.profile.education); // Set the fetched education data
-      } catch (error) {
-        console.error("Error fetching education data:", error);
-      }
-    };
-
-    fetchEducationData();
-  }, [id]);
-
-  if (!education.length) return <div>Loading Education...</div>;
+const EducationComponent: React.FC<EducationComponentProps> = ({ educationData }) => {
+  if (!educationData.length) return <div>No Education Data Available</div>;
 
   return (
     <div className="bg-[#1b1b1b] rounded-xl p-6 w-full text-white border-2 border-neutral-800">
       <div className="text-gray-400 text-lg mb-4">
         <span className="block">• Education</span>
       </div>
-      {/* Render JobAccordion with the fetched education data */}
-       {/* @ts-ignore */}
-      <JobAccordion jobs={education} setJobs={function (jobs: Job[]): void {
-        throw new Error("Function not implemented.");
-      } } />
+      {/* Render JobAccordion with the passed education data */}
+      <JobAccordion
+        jobs={educationData}
+        setJobs={function (jobs: Education[]): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </div>
   );
 };

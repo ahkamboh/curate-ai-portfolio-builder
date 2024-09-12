@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
+import { RowDataPacket } from 'mysql2/promise'; // Import RowDataPacket type
 
 // Define the Profile interface
 interface Profile {
@@ -12,15 +13,13 @@ interface Profile {
   status: string;
   email: string;
   mailtoLink: string;
+  userId: string;
 }
-
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
-
+export async function GET(request: Request, { params }: { params: { id: string, userId: string } }) {
+  const { id, userId } = params;  // Get both id and userId from the route
   try {
-    // Query the database to fetch the profile by ID
-     {/* @ts-ignore */}
-    const [rows] = await pool.query<Profile[]>(`SELECT * FROM profiles WHERE id = ?`, [id]);
+    // Query the database to fetch the profile by both ID and userId
+    const [rows] = await pool.query<Profile[] & RowDataPacket[]>(`SELECT * FROM profiles WHERE id = ? AND userId = ?`, [id, userId]);
 
     // Check if the profile exists
     if (rows.length === 0) {
@@ -29,7 +28,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
     return NextResponse.json({ profile: rows[0] }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching profile by ID:', error);
+    console.error('Error fetching profile by ID and userId:', error);
     return NextResponse.json({ error: 'Failed to fetch profile' }, { status: 500 });
   }
 }

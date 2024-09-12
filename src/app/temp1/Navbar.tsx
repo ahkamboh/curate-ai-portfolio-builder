@@ -1,9 +1,18 @@
-import React from 'react'
+import { Menu } from 'lucide-react';
+import React, { useState } from 'react';
+
 function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Toggle mobile menu
+  const handleMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
   return (
-    <div className="flex gap-1 pt-5">
-    <div className="w-16 h-16 rounded-full flex justify-center items-center bg-[#1b1b1b] border-2 border-neutral-800">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className=" pt-5">
+      <div className="flex justify-center lg:gap-5  gap-1">
+      <div className=" sm:p-3 px-4 rounded-full flex justify-center items-center bg-[#1b1b1b] border-2 border-neutral-800">
+      <svg className='sm:w-[40px] sm:h-[40px] w-[30px] h-[30px]' viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 11.9149C0 9.79976 1.71465 8.08511 3.82979 8.08511C5.94492 8.08511 7.65957 9.79976 7.65957 11.9149C7.65957 14.03 5.94492 15.7447 3.82979 15.7447C1.71465 15.7447 0 14.03 0 11.9149Z" fill="#F35034" />
         <path d="M0 20C0 17.8849 1.71465 16.1702 3.82979 16.1702C5.94492 16.1702 7.65957 17.8849 7.65957 20C7.65957 22.1151 5.94492 23.8298 3.82979 23.8298C1.71465 23.8298 0 22.1151 0 20Z" fill="#F35034" />
         <path d="M0 28.0851C0 25.97 1.71465 24.2553 3.82979 24.2553C5.94492 24.2553 7.65957 25.97 7.65957 28.0851C7.65957 30.2002 5.94492 31.9149 3.82979 31.9149C1.71465 31.9149 0 30.2002 0 28.0851Z" fill="#F35034" />
@@ -26,20 +35,59 @@ function Navbar() {
         <path d="M32.3404 20C32.3404 17.8849 34.0551 16.1702 36.1702 16.1702C38.2854 16.1702 40 17.8849 40 20C40 22.1151 38.2854 23.8298 36.1702 23.8298C34.0551 23.8298 32.3404 22.1151 32.3404 20Z" fill="#F35034" />
         <path d="M32.3404 28.0851C32.3404 25.97 34.0551 24.2553 36.1702 24.2553C38.2854 24.2553 40 25.97 40 28.0851C40 30.2002 38.2854 31.9149 36.1702 31.9149C34.0551 31.9149 32.3404 30.2002 32.3404 28.0851Z" fill="#F35034" />
       </svg>
+      </div>
+
+      {/* Desktop Menu */}
+      <ul className="flex w-full h-16 uppercase list-none justify-between items-center px-10 bg-[#1b1b1b] rounded-full border-2 border-neutral-800">
+        <li className='hidden lg:block'>
+          <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+            About
+          </a>
+        </li>
+        <li className='hidden lg:block'>
+          <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+            Portfolio
+          </a>
+        </li>
+        <li className='hidden lg:block'>
+          <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+            Contact
+          </a>
+        </li>
+              {/* Mobile Menu Toggle */}
+      <div className="lg:hidden flex justify-end items-center w-full px-5">
+        <Menu
+          strokeWidth={1.25}
+          onClick={handleMenuToggle}
+          className="cursor-pointer hover:text-[#f35034] transition-colors duration-200"
+        />
+      </div>
+      </ul>
+      </div>
+
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <ul className="lg:hidden  flex flex-col w-full bg-[#1b1b1b] rounded-lg mt-2 p-5 space-y-4">
+          <li>
+            <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+              Portfolio
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-[#f35034] transition-colors duration-200">
+              Contact
+            </a>
+          </li>
+        </ul>
+      )}
     </div>
-    <ul className="w-full h-16 uppercase list-none flex justify-between items-center px-10 bg-[#1b1b1b] rounded-full border-2 border-neutral-800">
-      <li>
-        <a href="mailto:example@gmail.com?subject=Hello&body=I%20am%20interested%20in%20your%20services." className='hover:text-[#f35034] transition-colors duration-200'>About</a>
-      </li>
-      <li>
-        <a href="#" className='hover:text-[#f35034] transition-colors duration-200'>Portfolio</a>
-      </li>
-      <li>
-        <a href="#" className='hover:text-[#f35034] transition-colors duration-200'>Contact</a>
-      </li>
-    </ul>
-  </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

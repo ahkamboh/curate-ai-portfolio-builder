@@ -10,7 +10,6 @@ interface Job {
   company: string;
   description: string;
 }
-
 // Define Props for JobAccordion component
 interface JobAccordionProps {
   jobs: Job[];
@@ -31,7 +30,6 @@ const JobAccordion: React.FC<JobAccordionProps> = ({ jobs, setJobs }) => {
     updatedJobs[index][field] = value;
     setJobs(updatedJobs); // Update jobs state in the parent component
   };
-
   return (
     <div className="space-y-4">
       {jobs.map((job, index) => (
@@ -42,8 +40,7 @@ const JobAccordion: React.FC<JobAccordionProps> = ({ jobs, setJobs }) => {
           >
             <div>
               <h3
-                contentEditable
-                className={`text-xl outline outline-1 outline-slate-400 font-semibold transition-colors duration-300 ${
+                className={`text-xl font-semibold transition-colors duration-300 ${
                   openIndex === index ? 'text-[#e63e21]' : 'text-white'
                 }`}
                 onBlur={(e) => handleJobChange(index, 'title', e.currentTarget.textContent || '')}
@@ -51,8 +48,7 @@ const JobAccordion: React.FC<JobAccordionProps> = ({ jobs, setJobs }) => {
                 {job.title}
               </h3>
               <p
-                className="text-gray-400 outline-1 outline-slate-400"
-                contentEditable
+                className="text-gray-400"
                 onBlur={(e) => handleJobChange(index, 'period', e.currentTarget.textContent || '')}
               >
                 {job.period}
@@ -60,8 +56,7 @@ const JobAccordion: React.FC<JobAccordionProps> = ({ jobs, setJobs }) => {
             </div>
             <div className="flex items-center">
               <span
-                className="text-gray-500 outline outline-1 outline-slate-400"
-                contentEditable
+                className="text-gray-500"
                 onBlur={(e) => handleJobChange(index, 'company', e.currentTarget.textContent || '')}
               >
                 {job.company}
@@ -75,14 +70,13 @@ const JobAccordion: React.FC<JobAccordionProps> = ({ jobs, setJobs }) => {
           </div>
 
           <div
-            className={`transition-all duration-500 ease-in-out  overflow-hidden ${
+            className={`transition-all duration-500 ease-in-out overflow-hidden ${
               openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
             <div className="pt-2">
               <p
-                className="text-gray-300 outline outline-1 outline-slate-400"
-                contentEditable
+                className="text-gray-300"
                 onBlur={(e) => handleJobChange(index, 'description', e.currentTarget.textContent || '')}
               >
                 {job.description}

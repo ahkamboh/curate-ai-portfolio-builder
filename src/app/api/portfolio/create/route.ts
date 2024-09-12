@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { RowDataPacket, PoolConnection } from 'mysql2/promise';
+import { PoolConnection } from 'mysql2/promise';
 import pool from '@/lib/db';
 import cloudinary from 'cloudinary';
 
@@ -10,35 +10,32 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
-
 // Interfaces for data structures
 interface Job {
   title: string;
+  period: string;
   company: string;
-  startDate: string;
-  endDate?: string;
   description: string;
 }
 
 interface Education {
-  institution: string;
-  degree: string;
-  field: string;
-  graduationYear: number;
+  title: string;
+  period: string;
+  company: string;
+  description: string;
 }
 
 interface Project {
   title: string;
+  imageUrl: string;
   description: string;
-  imageUrl?: string;
-  link?: string;
+  projectLink?: string;
 }
 
 interface Achievement {
+  id: string;
+  url: string;
   title: string;
-  description: string;
-  url?: string;
 }
 
 interface ProfileData {
@@ -51,33 +48,34 @@ interface ProfileData {
   status?: string;
   email: string;
   mailtoLink?: string;
+  contactHeading?: string;
+  contactDescription?: string;
+  contactLink?: string;
+  githubLink?: string;
+  instagramLink?: string;
+  linkedinLink?: string;
+  twitterLink?: string;
   projects: Project[];
   achievements: Achievement[];
+  font: string; // New field for font
+  userId: string; // Add userId to associate with Clerk's user
 }
 
-// Function to upload multiple images to Cloudinary in WebP format
-async function uploadImagesToCloudinary(urls: string[]): Promise<(string | null)[]> {
-  // Check if URLs array is empty
-  if (!urls.length) return [];
+// Function to upload a single image to Cloudinary in WebP format
+async function uploadImageToCloudinary(url: string): Promise<string | null> {
+  if (!url) return null;
 
   try {
-    // Upload each image and transform them to WebP
-    const uploadPromises = urls.map(url =>
-      cloudinary.v2.uploader.upload(url, {
-        resource_type: 'image',
-        format: 'webp', // Force WebP format
-        timeout: 60000, // 60 seconds timeout
-      })
-    );
+    const response = await cloudinary.v2.uploader.upload(url, {
+      resource_type: 'image',
+      format: 'webp', // Force WebP format
+      timeout: 30000,
+    });
 
-    // Resolve all upload promises in parallel
-    const uploadResponses = await Promise.all(uploadPromises);
-
-    // Return the secure URLs of the uploaded images
-    return uploadResponses.map(response => response.secure_url);
+    return response.secure_url;
   } catch (error) {
-    console.error('Cloudinary bulk upload failed:', error);
-    return [];
+    console.error('Cloudinary upload failed:', error);
+    return null;
   }
 }
 
@@ -85,52 +83,38 @@ export async function POST(request: Request): Promise<NextResponse> {
   const profileData: ProfileData = await request.json();
 
   // Validate required fields
-  if (!profileData.name || !profileData.title || profileData.jobs.length === 0 || 
-      profileData.education.length === 0 || profileData.projects.length === 0 || 
-      profileData.achievements.length === 0) {
-    return NextResponse.json({ error: 'Name, title, at least one job, education, project, and achievement are required' }, { status: 400 });
+  if (
+    !profileData.name ||
+    !profileData.title ||
+    profileData.jobs.length === 0 ||
+    profileData.education.length === 0 ||
+    profileData.projects.length === 0 ||
+    profileData.achievements.length === 0
+  ) {
+    return NextResponse.json(
+      { error: 'Name, title, at least one job, education, project, and achievement are required' },
+      { status: 400 }
+    );
   }
 
   let connection: PoolConnection | null = null;
 
   try {
-    // Collect all image URLs (profile image, project images, achievement images)
-    const imageUrls = [
-      profileData.imageUrl || '',
-      ...profileData.projects.map(p => p.imageUrl || ''),
-      ...profileData.achievements.map(a => a.url || '')
-    ];
+    const profileImageUrl = await uploadImageToCloudinary(profileData.imageUrl || '');
 
-    // Upload all images in bulk and store as WebP
-    const uploadedImageUrls = await uploadImagesToCloudinary(imageUrls);
+    const updatedProjects: Project[] = profileData.projects;
+    const updatedAchievements: Achievement[] = profileData.achievements;
 
-    // Assign uploaded URLs to profile image, projects, and achievements
-    const [profileImageUrl, ...otherImageUrls] = uploadedImageUrls;
-
-    // Update projects and achievements with new URLs
-    const updatedProjects: Project[] = profileData.projects.map((p, i) => ({
-      ...p,
-      imageUrl: otherImageUrls[i] || p.imageUrl,
-    }));
-
-    const updatedAchievements: Achievement[] = profileData.achievements.map((a, i) => ({
-      ...a,
-      url: otherImageUrls[i + profileData.projects.length] || a.url,
-    }));
-
-    // Get a connection from the pool
     connection = await pool.getConnection();
-
-    // Batch Insert Profile Data with Transactions
     await connection.beginTransaction();
 
-    // Insert profile data
-    const [result] = await connection.query<RowDataPacket[]>(
+    const [result]: any = await connection.query(
       `
-      INSERT INTO profiles (name, title, jobs, education, content, imageUrl, status, email, mailtoLink, projects, achievements)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO profiles (userId, name, title, jobs, education, content, imageUrl, status, email, mailtoLink, contactHeading, contactDescription, contactLink, githubLink, instagramLink, linkedinLink, twitterLink, projects, achievements, font)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
       [
+        profileData.userId, // Save the userId from Clerk
         profileData.name,
         profileData.title,
         JSON.stringify(profileData.jobs),
@@ -140,21 +124,29 @@ export async function POST(request: Request): Promise<NextResponse> {
         profileData.status || '',
         profileData.email,
         profileData.mailtoLink || '',
+        profileData.contactHeading || '',
+        profileData.contactDescription || '',
+        profileData.contactLink || '',
+        profileData.githubLink || '',
+        profileData.instagramLink || '',
+        profileData.linkedinLink || '',
+        profileData.twitterLink || '',
         JSON.stringify(updatedProjects),
-        JSON.stringify(updatedAchievements)
+        JSON.stringify(updatedAchievements),
+        profileData.font,
       ]
     );
 
+    const insertedId = result.insertId;
     await connection.commit();
 
-    return NextResponse.json({ message: 'Profile created successfully', result }, { status: 201 });
+    return NextResponse.json({ message: 'Profile created successfully', id: insertedId }, { status: 201 });
   } catch (error) {
     if (connection) await connection.rollback();
-    console.error('Error creating profile:', error);
     return NextResponse.json({ error: 'Failed to create profile' }, { status: 500 });
   } finally {
     if (connection) {
-      connection.release(); // Release the connection back to the pool
+      connection.release();
     }
   }
 }

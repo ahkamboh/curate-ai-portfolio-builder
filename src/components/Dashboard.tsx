@@ -29,25 +29,21 @@ function Dashboard() {
               <div className='ClashDisplay-Reguler text-sm sm:text-base'>Craft a compelling introduction to hook potential clients and employers.</div>
             </div>
           </div>
-
           <div className="h-[160px] sm:h-[180px] min-w-[280px] sm:min-w-[374px] bg-neutral-700 rounded-[10px] border-2 border-[#575757] p-3 space-y-1">
             <img src="/portfolio.svg" alt="Portfolio Icon" />
             <div className="ClashDisplay-Semibold text-base sm:text-lg tracking-wider">Experience</div>
             <div className='ClashDisplay-Reguler text-sm sm:text-base'>Highlight your relevant work experience with AI-powered recommendations for better impact.</div>
           </div>
-
           <div className="h-[160px] sm:h-[180px] min-w-[280px] sm:min-w-[374px] bg-neutral-700 rounded-[10px] border-2 border-[#575757] p-3 space-y-1">
             <img src="/portfolio.svg" alt="Portfolio Icon" />
             <div className="ClashDisplay-Semibold text-base sm:text-lg tracking-wider">Skills</div>
             <div className='ClashDisplay-Reguler text-sm sm:text-base'>List your top skills, and let AI suggest additional ones that match your industry.</div>
           </div>
-
           <div className="h-[160px] sm:h-[180px] min-w-[280px] sm:min-w-[374px] bg-neutral-700 rounded-[10px] border-2 border-[#575757] p-3 space-y-1">
             <img src="/portfolio.svg" alt="Portfolio Icon" />
             <div className="ClashDisplay-Semibold text-base sm:text-lg tracking-wider">Projects</div>
             <div className='ClashDisplay-Reguler text-sm sm:text-base'>Showcase your completed projects with suggested descriptions that highlight your achievements.</div>
           </div>
-
           <div className="h-[160px] sm:h-[180px] min-w-[280px] sm:min-w-[374px] bg-neutral-700 rounded-[10px] border-2 border-[#575757] p-3 space-y-1">
             <img src="/portfolio.svg" alt="Portfolio Icon" />
             <div className="ClashDisplay-Semibold text-base sm:text-lg tracking-wider">Testimonials</div>

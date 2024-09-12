@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import JobAccordion from "@/components/JobAccordion";
-import { useParams } from "next/navigation";
+import React from "react";
+import JobAccordion from "./JobAccordion";
 
 interface Job {
   title: string;
@@ -10,35 +9,25 @@ interface Job {
   description: string;
 }
 
-const Experience: React.FC = () => {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const { id } = useParams(); // Get profile id from the route
+interface ExperienceProps {
+  jobsData: Job[]; // Expect the jobs data as a prop
+}
 
-  useEffect(() => {
-    const fetchExperienceData = async () => {
-      try {
-        const response = await fetch(`/api/portfolio/read/${id}`);
-        const data = await response.json();
-        setJobs(data.profile.jobs); // Set the fetched jobs data
-      } catch (error) {
-        console.error("Error fetching experience data:", error);
-      }
-    };
-
-    fetchExperienceData();
-  }, [id]);
-
-  if (!jobs.length) return <div>Loading Experience...</div>;
+const Experience: React.FC<ExperienceProps> = ({ jobsData }) => {
+  if (!jobsData.length) return <div>No Experience Data Available</div>;
 
   return (
     <div className="bg-[#1b1b1b] rounded-xl p-6 w-full text-white border-2 border-neutral-800">
       <div className="text-gray-400 text-lg mb-4">
         <span className="block">• Recent Work</span>
       </div>
-      {/* Render JobAccordion with the fetched jobs */}
-      <JobAccordion jobs={jobs} setJobs={function (jobs: Job[]): void {
-        throw new Error("Function not implemented.");
-      } } />
+      {/* Render JobAccordion with the passed jobs data */}
+      <JobAccordion
+        jobs={jobsData}
+        setJobs={function (jobs: Job[]): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </div>
   );
 };

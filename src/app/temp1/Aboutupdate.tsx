@@ -1,21 +1,20 @@
 "use client";
 import { ImageUp } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useUser } from "@clerk/nextjs"; 
 
 interface AboutProps {
   onProfileDataChange: (profileData: any) => void;
-  emailBody: string;
-  setEmailBody: React.Dispatch<React.SetStateAction<string>>;
-  emailSubject: string;
-  setEmailSubject: React.Dispatch<React.SetStateAction<string>>;
-  userEmail: string;
-  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
-  userURL: string;
-  setUserURL: React.Dispatch<React.SetStateAction<string>>;
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+    emailBody: string;
+    setEmailBody: (val: string) => void;
+    emailSubject: string;
+    setEmailSubject: (val: string) => void;
+    userEmail: string;
+    setUserEmail: (val: string) => void;
+    userURL: string;
+    setUserURL: (val: string) => void;
+    isModalOpen: boolean;
+    setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }
 
 export default function About({
   onProfileDataChange,
@@ -30,17 +29,13 @@ export default function About({
   isModalOpen,
   setIsModalOpen,
 }: AboutProps) {
-  const { user } = useUser(); // Get the user object from Clerk
-
-  // Set user information from Clerk if logged in
-  const defaultProfileImage = "/profile.png";
-  const [profileImage, setProfileImage] = useState(user?.imageUrl || defaultProfileImage);
+  const [profileImage, setProfileImage] = useState("/profile.png");
   const [copied, setCopied] = useState(false);
   const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
-
-  // Define profileData state with initial values, populated with Clerk user info
+  
+  // Define profileData state with initial values
   const [profileData, setProfileData] = useState({
-    name: user?.fullName || "I am Aneeza", // Clerk user full name or default
+    name: "I am Aneeza",
     description: "I design digital products with great experience.",
     title: "UI/UX Designer",
     status: "AVAILABLE FOR JOB"
@@ -110,11 +105,6 @@ export default function About({
   };
 
   useEffect(() => {
-    // Set default email to the user's email if logged in
-    if (user && user.emailAddresses && user.emailAddresses[0]) {
-      setUserEmail(user.emailAddresses[0].emailAddress || "");
-    }
-
     const updatedProfileData = {
       title: profileData.title,
       content: profileData.description,
@@ -169,14 +159,13 @@ export default function About({
           >
             {profileData.description}
           </p>
-          <div className="flex gap-2 pt-4">
+          <div className="flex gap-2 pt-4 " >
             <button
               onClick={handleHireMeClick}
-              onDoubleClick={handleDoubleClick}
-              title="click and fill email"
+              onDoubleClick={handleDoubleClick} title="click and fill email"
               className="hover:bg-[#e63e21c6] shadow-[0px_1px_37px_0px_#e63e21af] bg-[#e63e21] border-2 border-[#171717] rounded-md flex justify-center items-center"
             >
-              <span className="px-2 font-semibold">Hire me</span>
+              <span className="px-2 font-semibold" >Hire me</span>
               <div className="h-10 w-0.5 bg-[#171717]"></div>
               <div className="px-2">
                 <svg

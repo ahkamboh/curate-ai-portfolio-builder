@@ -18,7 +18,7 @@ export default function Main() {
        <Pricing/>
       <DesignSection />
       <Banner />
-  < FaqAccordion/>
+    < FaqAccordion/>
       <Footer />
     </div>
   );

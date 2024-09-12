@@ -11,6 +11,12 @@ interface ContactProps {
   setUserURL: React.Dispatch<React.SetStateAction<string>>;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  contactHeading: string;
+  setContactHeading: React.Dispatch<React.SetStateAction<string>>;
+  contactDescription: string;
+  setContactDescription: React.Dispatch<React.SetStateAction<string>>;
+  contactLink: string;
+  setContactLink: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Contact: React.FC<ContactProps> = ({
@@ -24,6 +30,12 @@ const Contact: React.FC<ContactProps> = ({
   setUserURL,
   isModalOpen,
   setIsModalOpen,
+  contactHeading,
+  setContactHeading,
+  contactDescription,
+  setContactDescription,
+  contactLink,
+  setContactLink,
 }) => {
   // Construct the mailto link
   const createMailtoLink = () => {
@@ -39,36 +51,57 @@ const Contact: React.FC<ContactProps> = ({
   };
 
   const handleContactClick = () => {
-    setIsModalOpen(true); // Open the shared modal on click
+    setIsModalOpen(true); // Open the modal on click
   };
 
   const handleFormSubmit = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false); // Close the modal after form submission
   };
 
   return (
     <div
       className="flex mt-5 justify-between h-[400px] relative overflow-hidden bg-[#1b1b1b] border-2 p-5 border-neutral-800 rounded-xl"
-      onDoubleClick={handleDoubleClick} // Double click to redirect
+      onDoubleClick={handleDoubleClick} // Double-click to redirect to the mailto link
     >
       <div className="w-full flex flex-col z-10 gap-8 justify-center items-center text-center">
-        <h1 className="text-white text-4xl font-semibold" contentEditable>
-          Have idea about project?
+        <h1
+          className="text-white text-4xl font-semibold contactHeading outline outline-1 outline-slate-400"
+          contentEditable
+          onBlur={(e) => setContactHeading(e.currentTarget.textContent || '')}
+        >
+          {contactHeading || "Have an idea about a project?"}
         </h1>
-        <p className="text-[#c0c0c0] text-lg font-normal max-w-lg" contentEditable>
-          Write anything here something about yourself to showcase <br /> what actually you doing or targeting etc.
+        <p
+          className="text-[#c0c0c0] text-lg font-normal max-w-lg contactDescription outline outline-1 outline-slate-400"
+          contentEditable
+          onBlur={(e) => setContactDescription(e.currentTarget.textContent || '')}
+        >
+          {contactDescription || "Write something here about yourself to showcase what you're doing or targeting."}
         </p>
-        <button onClick={handleContactClick}  className='hover:bg-[#e63e21c6] shadow-[0px_1px_37px_0px_#e63e21af] bg-[#e63e21] border-2 border-[#171717] rounded-md flex justify-center items-center'>
-              <span className='px-2 font-semibold'>Hire me</span>
-              <div className="h-10 w-0.5 bg-[#171717]"></div>
-              <div className="px-2">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13 7.99854H8V12.9985C8 13.2638 7.89464 13.5181 7.70711 13.7056C7.51957 13.8932 7.26522 13.9985 7 13.9985C6.73478 13.9985 6.48043 13.8932 6.29289 13.7056C6.10536 13.5181 6 13.2638 6 12.9985V7.99854H1C0.734784 7.99854 0.48043 7.89318 0.292893 7.70564C0.105357 7.51811 0 7.26375 0 6.99854C0 6.73332 0.105357 6.47896 0.292893 6.29143C0.48043 6.10389 0.734784 5.99854 1 5.99854H6V0.998535C6 0.733319 6.10536 0.478964 6.29289 0.291428C6.48043 0.103892 6.73478 -0.00146484 7 -0.00146484C7.26522 -0.00146484 7.51957 0.103892 7.70711 0.291428C7.89464 0.478964 8 0.733319 8 0.998535V5.99854H13C13.2652 5.99854 13.5196 6.10389 13.7071 6.29143C13.8946 6.47896 14 6.73332 14 6.99854C14 7.26375 13.8946 7.51811 13.7071 7.70564C13.5196 7.89318 13.2652 7.99854 13 7.99854Z" fill="white" />
-                </svg>
-              </div>
-            </button>
+        <button
+          onClick={handleContactClick}
+          className="contactLink hover:bg-[#e63e21c6] shadow-[0px_1px_37px_0px_#e63e21af] bg-[#e63e21] border-2 border-[#171717] rounded-md flex justify-center items-center"
+        >
+          <span className="px-2 font-semibold">{contactLink || "Hire me"}</span>
+          <div className="h-10 w-0.5 bg-[#171717]"></div>
+          <div className="px-2">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M13 7.99854H8V12.9985C8 13.2638 7.89464 13.5181 7.70711 13.7056C7.51957 13.8932 7.26522 13.9985 7 13.9985C6.73478 13.9985 6.48043 13.8932 6.29289 13.7056C6.10536 13.5181 6 13.2638 6 12.9985V7.99854H1C0.734784 7.99854 0.48043 7.89318 0.292893 7.70564C0.105357 7.51811 0 7.26375 0 6.99854C0 6.73332 0.105357 6.47896 0.292893 6.29143C0.48043 6.10389 0.734784 5.99854 1 5.99854H6V0.998535C6 0.733319 6.10536 0.478964 6.29289 0.291428C6.48043 0.103892 6.73478 -0.00146484 7 -0.00146484C7.26522 -0.00146484 7.51957 0.103892 7.70711 0.291428C7.89464 0.478964 8 0.733319 8 0.998535V5.99854H13C13.2652 5.99854 13.5196 6.10389 13.7071 6.29143C13.8946 6.47896 14 6.73332 14 6.99854C14 7.26375 13.8946 7.51811 13.7071 7.70564C13.5196 7.89318 13.2652 7.99854 13 7.99854Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+        </button>
       </div>
 
+      {/* Modal for sending email */}
       {isModalOpen && (
         <div className="fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-[#1b1b1b] border-2 border-neutral-800 p-6 rounded-lg">
@@ -102,7 +135,7 @@ const Contact: React.FC<ContactProps> = ({
                 Cancel
               </button>
               <button onClick={handleFormSubmit} className="px-4 py-2 bg-[#e63e21] text-white rounded-md">
-              Add
+                Send
               </button>
             </div>
           </div>

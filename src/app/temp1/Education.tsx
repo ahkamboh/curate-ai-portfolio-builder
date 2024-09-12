@@ -8,28 +8,28 @@ interface EducationProps {
 
 const initialEducation = [
   {
-    title: "Product Designer",
-    period: "2023 - Present",
-    company: "Figma",
-    description: "Responsible for designing user-centric products and interfaces."
+    title: "BS in Computer Science",
+    period: "2017 - 2021",
+    company: "Stanford University",
+    description: "Focused on software engineering, algorithms, and user-centered design."
   },
   {
-    title: "UI/UX Designer",
-    period: "2021 - 2022",
-    company: "Google",
-    description: "Focused on creating intuitive and visually appealing user interfaces."
+    title: "MS in Human-Computer Interaction",
+    period: "2021 - 2023",
+    company: "Carnegie Mellon University",
+    description: "Specialized in UI/UX design, human-centered computing, and prototyping."
   },
   {
-    title: "Senior Product Designer",
-    period: "2020 - 2021",
-    company: "Airbnb",
-    description: "Led the redesign of the booking Education, enhancing user engagement and streamlining the booking process."
+    title: "UI/UX Design Certification",
+    period: "2020",
+    company: "Interaction Design Foundation",
+    description: "Completed a professional certification in UI/UX design, covering design systems, prototyping, and usability testing."
   },
   {
-    title: "Graphic Designer",
+    title: "Graphic Design Diploma",
     period: "2018 - 2020",
-    company: "Adobe",
-    description: "Developed creative concepts and designs for digital and print media, including branding, marketing materials, and user guides."
+    company: "Rhode Island School of Design",
+    description: "Learned foundational graphic design concepts, branding, and typography."
   }
 ];
 
@@ -44,7 +44,7 @@ const Education: React.FC<EducationProps> = ({ onEducationDataChange }) => {
   return (
     <div className="bg-[#1b1b1b] rounded-xl p-6 w-full text-white border-2 border-neutral-800">
       <div className="text-gray-400 text-lg mb-4">
-        <span className="block">•<span>Recent Work</span></span>
+        <span className="block">•<span>Recent Education</span></span>
       </div>
       <JobAccordion jobs={education} setJobs={setEducation} />
     </div>
